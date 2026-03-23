@@ -97,10 +97,19 @@ public static class EncodingService
         { 0xFD, '\u00fd' }  // ý
     };
 
+    private static readonly Dictionary<char, byte> UNICODE_TO_VISCII_MAP = new Dictionary<char, byte>();
+
     private static readonly Encoding Win1252Encoding;
 
     static EncodingService()
     {
+        foreach (var keyPair in VISCII_TO_UNICODE_MAP)
+        {
+            if (!UNICODE_TO_VISCII_MAP.ContainsKey(keyPair.Value))
+            {
+                UNICODE_TO_VISCII_MAP.Add(keyPair.Value, keyPair.Key);
+            }
+        }
         // On .NET Core, we would need Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         // But the library might be used in a host that already did that.
         // For .NET 4.8 it just works.
@@ -142,5 +151,29 @@ public static class EncodingService
             }
         }
         return sb.ToString();
+    }
+
+    public static byte[] EncodeViscii(string text)
+    {
+        var bytes = new byte[text.Length];
+        for (var i = 0; i < text.Length; i++)
+        {
+            var c = text[i];
+            if (UNICODE_TO_VISCII_MAP.TryGetValue(c, out var b))
+            {
+                bytes[i] = b;
+            }
+            else if (c < 128)
+            {
+                bytes[i] = (byte)c;
+            }
+            else
+            {
+                // Fallback to Windows-1252 for unmapped characters
+                var fallbackBytes = Win1252Encoding.GetBytes(new[] { c });
+                bytes[i] = fallbackBytes.Length > 0 ? fallbackBytes[0] : (byte)'?';
+            }
+        }
+        return bytes;
     }
 }

@@ -1,4 +1,5 @@
 using System.Text;
+using liuguang.Dbc;
 
 namespace liuguang.TlbbGmTool.Services;
 
@@ -25,6 +26,10 @@ public static class DbStringService
     public static string ToCommonString(string dbString)
     {
         var bytes = StorageEncoding.GetBytes(dbString);
+        if (DbcFile.UseViscii)
+        {
+            return EncodingService.DecodeViscii(bytes);
+        }
         return StrEncoding.GetString(bytes);
     }
 
@@ -35,7 +40,15 @@ public static class DbStringService
     /// <returns></returns>
     public static string ToDbString(string commonString)
     {
-        var bytes = StrEncoding.GetBytes(commonString);
+        byte[] bytes;
+        if (DbcFile.UseViscii)
+        {
+            bytes = EncodingService.EncodeViscii(commonString);
+        }
+        else
+        {
+            bytes = StrEncoding.GetBytes(commonString);
+        }
         return StorageEncoding.GetString(bytes);
     }
 }

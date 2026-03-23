@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:liuguang.TlbbGmTool.ViewModels"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="CanMinimize"
-        Title="Thông tin chương trình" Height="394" Width="640">
+        Title="Thông tin chương trình" Height="430" Width="640">
     <Window.DataContext>
         <vm:AboutWindowViewModel/>
     </Window.DataContext>
@@ -24,12 +24,16 @@
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Style="{StaticResource BoldBlock}"><Run Text="Công cụ này được phát triển bởi Lưu Quang, chỉ dùng cho nghiên cứu kỹ thuật. Mọi hậu quả khi sử dụng công cụ này tác giả không chịu trách nhiệm."/></TextBlock>
+        <TextBlock Grid.Row="0" Style="{StaticResource BoldBlock}">
+            <Run Text="Công cụ này được phát triển bởi Lưu Quang, chỉ dùng cho nghiên cứu kỹ thuật."/>
+            <LineBreak/>
+            <Run Text="Mọi hậu quả khi sử dụng công cụ này tác giả không chịu trách nhiệm."/>
+        </TextBlock>
         <TextBlock Grid.Row="1" Style="{StaticResource BoldBlock}">
             <Run>Phiên bản hiện tại:</Run>
             <Run Foreground="#FF51ED1A">[</Run>
