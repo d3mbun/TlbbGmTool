@@ -15,9 +15,9 @@ public class PetSkillEditorViewModel : ViewModelBase
     private PetLogViewModel? _inputPetInfo;
     private PetLogViewModel _petInfo = new(new());
     private List<ComboBoxNode<int>> _skillTypeSelection = new() {
-        new("全部",0),
-        new("手动",1),
-        new("自动",2),
+        new("Tất cả",0),
+        new("Chủ động",1),
+        new("Bị động",2),
         new("buff",3)
     };
     private string _searchText = string.Empty;
@@ -25,12 +25,12 @@ public class PetSkillEditorViewModel : ViewModelBase
     private PetSkillViewModel? _selectedSkill;
     private SortedDictionary<int, PetSkillViewModel> _allSkills;
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
     #region Properties
-    public string WindowTitle => $"修改 {_petInfo.PetName} (ID: {_petInfo.Id})技能列表";
+    public string WindowTitle => $"Chỉnh sửa danh sách kỹ năng {_petInfo.PetName} (ID: {_petInfo.Id})";
     public PetLogViewModel PetInfo
     {
         set
@@ -78,11 +78,11 @@ public class PetSkillEditorViewModel : ViewModelBase
         get
         {
             return (from skillItem in _allSkills.Values
-                        //类别筛选
+                        // Lọc theo loại
                     where _searchSkillType == 0 || skillItem.SkillType == (_searchSkillType - 1)
-                    //关键词筛选
-                    where skillItem.Name.IndexOf(_searchText) >= 0
-                    //排除已存在的
+                    // Lọc theo từ khóa
+                    where skillItem.Name.IndexOf(_searchText, StringComparison.OrdinalIgnoreCase) >= 0
+                    // Loại trừ những cái đã tồn tại
                     where !SkillList.Contains(skillItem)
                     select skillItem).ToList();
         }
@@ -120,12 +120,12 @@ public class PetSkillEditorViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 重新加载列表
+    /// Tải lại danh sách
     /// </summary>
     private void NotifyReloadSkillSelection()
     {
         RaisePropertyChanged(nameof(SkillSelection));
-        //默认选择第一个
+        // Mặc định chọn cái đầu tiên
         SelectedSkill = SkillSelection.First();
         AddPetSkillCommand.RaiseCanExecuteChanged();
     }
@@ -187,12 +187,12 @@ public class PetSkillEditorViewModel : ViewModelBase
                 await DoSavePetSkillAsync(Connection, _petInfo);
             });
             _inputPetInfo?.CopyFrom(_petInfo);
-            ShowMessage("保存成功", "保存珍兽技能成功");
+            ShowMessage("Lưu thành công", "Lưu kỹ năng Trân Thú thành công");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("保存珍兽技能失败", ex);
+            ShowErrorMessage("Lưu kỹ năng Trân Thú thất bại", ex);
         }
         finally
         {
@@ -215,7 +215,7 @@ public class PetSkillEditorViewModel : ViewModelBase
 
         var pData = new byte[13 * nodeLength];
         var offset = 0;
-        //写入技能id
+        // Ghi mã kỹ năng (ID)
         foreach (var skillInfo in SkillList)
         {
             if (serverType == ServerType.Common)
@@ -233,7 +233,7 @@ public class PetSkillEditorViewModel : ViewModelBase
                 offset++;
             }
         }
-        //填充剩余数据
+        // Điền dữ liệu còn lại
         while (offset < pData.Length)
         {
 
@@ -266,7 +266,7 @@ public class PetSkillEditorViewModel : ViewModelBase
         {
             Value = petInfo.Id
         });
-        // 切换数据库
+        // Chuyển đổi CSDL
         await connection.SwitchGameDbAsync();
         //exec
         await mySqlCommand.ExecuteNonQueryAsync();
@@ -294,7 +294,7 @@ public class PetSkillEditorViewModel : ViewModelBase
             return;
         }
 
-        //判断是否存在
+        // Kiểm tra xem có tồn tại không
         foreach (var skillInfo in SkillList)
         {
             if (skillInfo.Id == _selectedSkill.Id)

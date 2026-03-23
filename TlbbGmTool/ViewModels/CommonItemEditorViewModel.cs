@@ -17,7 +17,7 @@ public class CommonItemEditorViewModel : ViewModelBase
     private CommonItemDataViewModel _itemData = new();
     private BagContainer? _itemsContainer;
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     public BagType RoleBagType = BagType.ItemBag;
@@ -38,11 +38,8 @@ public class CommonItemEditorViewModel : ViewModelBase
     {
         get
         {
-            if (_inputItemLog is null)
-            {
-                return "发放物品";
-            }
-            return "修改物品 " + _itemData.ItemName;
+                return "Phát Vật Phẩm";
+            return "Chỉnh sửa Vật Phẩm " + _itemData.ItemName;
         }
     }
     public ItemLogViewModel ItemLog
@@ -83,7 +80,7 @@ public class CommonItemEditorViewModel : ViewModelBase
     }
     public CommonItemDataViewModel ItemData => _itemData;
     /// <summary>
-    /// 数量编辑功能的状态
+    /// Trạng thái tính năng sửa số lượng
     /// </summary>
     public bool CountEditorEnabled => (_itemData.MaxSize > 1);
     #endregion
@@ -144,7 +141,7 @@ public class CommonItemEditorViewModel : ViewModelBase
         var selectorWindow = new ItemSelectorWindow();
         var beforeAction = (ItemSelectorViewModel vm) =>
         {
-            vm.WindowTitle = "选择物品";
+            vm.WindowTitle = "Chọn Vật Phẩm";
             vm.InitItemId = _itemData.ItemBaseId;
             var filterClass = 3;
             switch (RoleBagType)
@@ -178,7 +175,7 @@ public class CommonItemEditorViewModel : ViewModelBase
     {
         if ((_itemData.Count < 1) || (_itemData.Count > _itemData.MaxSize))
         {
-            ShowErrorMessage("数量不正确", "当前数量设置不正确");
+            ShowErrorMessage("Số lượng không chính xác", "Thiết lập số lượng hiện tại không chính xác");
             return;
         }
         if (Connection is null)
@@ -218,12 +215,12 @@ public class CommonItemEditorViewModel : ViewModelBase
                 await ItemDbService.InsertItemAsync(connection, _itemsContainer.PosOffset, _itemsContainer.BagMaxSize, itemLog);
             });
             _itemsContainer.InsertNewItem(itemLog);
-            ShowMessage("发放成功", $"发放物品成功,pos={itemLog.Pos}");
+            ShowMessage("Phát thành công", $"Phát Vật Phẩm thành công, vị trí={itemLog.Pos}");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("发放失败", ex, true);
+            ShowErrorMessage("Phát thất bại", ex, true);
         }
         finally
         {
@@ -241,12 +238,12 @@ public class CommonItemEditorViewModel : ViewModelBase
             });
             itemLog.ItemBaseId = itemBaseId;
             itemLog.PData = pData;
-            ShowMessage("修改成功", "修改物品成功");
+            ShowMessage("Chỉnh sửa thành công", "Chỉnh sửa Vật Phẩm thành công");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("修改失败", ex, true);
+            ShowErrorMessage("Chỉnh sửa thất bại", ex, true);
         }
         finally
         {

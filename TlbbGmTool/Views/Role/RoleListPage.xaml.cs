@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace liuguang.TlbbGmTool.Views.Role;
 
 /// <summary>
-/// RoleListPage.xaml 的交互逻辑
+/// Logic tương tác cho RoleListPage.xaml
 /// </summary>
 public partial class RoleListPage : Page
 {
@@ -30,7 +30,7 @@ public partial class RoleListPage : Page
         //MessageBox.Show("bind2");
         mainWindowVm.PropertyChanged += (sender, evt) =>
         {
-            //连接被断开后,清理搜索结果列表
+            // Sau khi ngắt kết nối, xóa danh sách kết quả tìm kiếm
             if (evt.PropertyName == nameof(mainWindowVm.CanDisConnServer))
             {
                 if (mainWindowVm.CanConnServer)

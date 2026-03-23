@@ -12,6 +12,8 @@ public partial class DbcFile
     /// 文本编码
     /// </summary>
     private static Encoding _textEncoding = Encoding.GetEncoding("GB18030");
+
+    public static bool UseViscii { get; set; } = false;
     /// <summary>
     /// 字段类型列表
     /// </summary>

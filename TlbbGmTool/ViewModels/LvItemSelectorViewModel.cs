@@ -8,7 +8,7 @@ using System.Linq;
 namespace liuguang.TlbbGmTool.ViewModels;
 
 /// <summary>
-/// 宝石选择器
+/// Trình chọn ngọc
 /// </summary>
 public class LvItemSelectorViewModel : ViewModelBase
 {
@@ -27,16 +27,16 @@ public class LvItemSelectorViewModel : ViewModelBase
     #endregion
     #region Fields
     /// <summary>
-    /// 所有的装备列表
+    /// Toàn bộ danh sách trang bị
     /// </summary>
     private List<ItemBaseViewModel> _itemList = new();
     /// <summary>
-    /// 符合筛选条件的装备列表
+    /// Danh sách trang bị phù hợp điều kiện lọc
     /// </summary>
     private List<ItemBaseViewModel> _filterItemList = new();
     private int _initItemId;
 
-    private string _windowTitle = "物品选择器";
+    private string _windowTitle = "Bộ chọn vật phẩm";
     private int _selectedType = 0;
     private byte _selectedLevel;
     private string _searchText = string.Empty;
@@ -105,10 +105,10 @@ public class LvItemSelectorViewModel : ViewModelBase
     }
 
     public List<ComboBoxNode<int>> ShortTypeSelection { get; } = new() {
-        new("全部",0)
+        new("Tất cả",0)
     };
     public List<ComboBoxNode<byte>> LevelSelection { get; } = new() {
-        new("全部",0)
+        new("Tất cả",0)
     };
 
     public IEnumerable<ItemBaseViewModel> CurrentPageItemList
@@ -163,7 +163,7 @@ public class LvItemSelectorViewModel : ViewModelBase
         });
         foreach (var levelValue in levels)
         {
-            LevelSelection.Add(new($"{levelValue}级", levelValue));
+            LevelSelection.Add(new($"{levelValue} Cấp", levelValue));
         }
         RaisePropertyChanged(nameof(LevelSelection));
     }
@@ -173,7 +173,7 @@ public class LvItemSelectorViewModel : ViewModelBase
         _filterItemList = (from itemBaseInfo in _itemList
                            where _selectedLevel == 0 || itemBaseInfo.ItemLevel == _selectedLevel
                            where _selectedType == 0 || itemBaseInfo.ItemShortTypeString == ShortTypeSelection[_selectedType].Title
-                           where itemBaseInfo.ItemName.IndexOf(_searchText, StringComparison.Ordinal) >= 0
+                           where itemBaseInfo.ItemName.IndexOf(_searchText, StringComparison.OrdinalIgnoreCase) >= 0
                            select itemBaseInfo).ToList();
         _pagination.SetCount(_filterItemList.Count, _pageLimit);
         RaisePropertyChanged(nameof(CurrentPageItemList));

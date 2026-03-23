@@ -18,7 +18,7 @@ public class EquipEditorViewModel : ViewModelBase
     private readonly EquipDataViewModel _equipData = new();
     private BagContainer? _itemsContainer;
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
@@ -38,11 +38,8 @@ public class EquipEditorViewModel : ViewModelBase
     {
         get
         {
-            if (_inputItemLog is null)
-            {
-                return "发放装备";
-            }
-            return "修改装备 " + _equipData.EquipName;
+                return "Phát Trang Bị";
+            return "Chỉnh sửa Trang Bị " + _equipData.EquipName;
         }
     }
     public ItemLogViewModel ItemLog
@@ -70,11 +67,11 @@ public class EquipEditorViewModel : ViewModelBase
     }
     public EquipDataViewModel EquipData => _equipData;
     /// <summary>
-    /// 星级选择
+    /// Chọn sao
     /// </summary>
     public List<ComboBoxNode<byte>> StarSection { get; } = new();
     /// <summary>
-    /// 孔数选择
+    /// Chọn số lỗ
     /// </summary>
     public List<ComboBoxNode<byte>> GemMaxCountSection { get; } = new();
     #endregion
@@ -102,23 +99,23 @@ public class EquipEditorViewModel : ViewModelBase
         SaveCommand = new(SaveItem, () => !_isSaving);
         for (byte i = 0; i <= 9; i++)
         {
-            StarSection.Add(new($"{i}星", i));
+            StarSection.Add(new($"{i} Sao", i));
         }
         for (byte i = 0; i <= 4; i++)
         {
-            GemMaxCountSection.Add(new($"{i}孔", i));
+            GemMaxCountSection.Add(new($"{i} Lỗ", i));
         }
         _equipData.PropertyChanged += EquipData_PropertyChanged;
     }
 
     /// <summary>
-    /// 当选择一个新的装备id时，初始化对应的数据
+    /// Khởi tạo dữ liệu tương ứng khi chọn ID trang bị mới
     /// </summary>
     /// <param name="itemBase"></param>
     private void LoadNewItemBase(ItemBaseViewModel itemBase)
     {
         _equipData.ItemBaseId = itemBase.ItemBaseId;
-        //无属性的装备
+        // Trang bị không thuộc tính
         if (!_equipData.HasSegAttr)
         {
             _equipData.Attr0 = 0;
@@ -132,14 +129,14 @@ public class EquipEditorViewModel : ViewModelBase
             _equipData.MaxDurPoint = equipBaseInfo.MaxDurPoint;
             _equipData.VisualId = equipBaseInfo.EquipVisual;
             _equipData.DarkFlag = 0;
-            //暗器
+            // Ám khí
             if (equipBaseInfo.EquipPoint == 17)
             {
                 _equipData.DarkFlag = 1;
                 _equipData.Attr0 = 0;
-                //固定5种基本属性
+                // 5 thuộc tính cơ bản cố định
                 _equipData.Attr1 = 0x7C00;
-                //暗器没有制作者
+                // Ám khí không có người chế tạo
                 _equipData.HasCreator = false;
                 _equipData.Creator = string.Empty;
             }
@@ -148,7 +145,7 @@ public class EquipEditorViewModel : ViewModelBase
 
     private void EquipData_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        //当孔数变化后,通知选择宝石按钮的状态更新
+        // Khi số lỗ thay đổi, thông báo cập nhật trạng thái nút chọn ngọc
         if (e.PropertyName == nameof(_equipData.GemMaxCount))
         {
             SelectGem0Command.RaiseCanExecuteChanged();
@@ -167,14 +164,14 @@ public class EquipEditorViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 展示修改装备id的窗体
+    /// Hiện cửa sổ sửa ID trang bị
     /// </summary>
     private void ShowSelectEquipWindow()
     {
         var selectorWindow = new ItemSelectorWindow();
         var beforeAction = (ItemSelectorViewModel vm) =>
         {
-            vm.WindowTitle = "选择装备";
+            vm.WindowTitle = "Chọn Trang Bị";
             vm.InitItemId = _equipData.ItemBaseId;
             vm.ItemList = (from itemBaseInfo in SharedData.ItemBaseMap.Values
                            where itemBaseInfo.TClass == 1
@@ -191,7 +188,7 @@ public class EquipEditorViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 展示修改外形的窗体
+    /// Hiện cửa sổ sửa ngoại hình
     /// </summary>
     private void ShowSelectVisualWindow()
     {
@@ -199,12 +196,12 @@ public class EquipEditorViewModel : ViewModelBase
         var visualItemId = _equipData.ParseVisualItemId(_equipData.VisualId);
         var beforeAction = (ItemSelectorViewModel vm) =>
         {
-            vm.WindowTitle = "选择外形";
+            vm.WindowTitle = "Chọn Ngoại Hình";
             vm.InitItemId = visualItemId ?? 0;
             vm.ItemList = (from itemBaseInfo in SharedData.ItemBaseMap.Values
                            where itemBaseInfo.TClass == 1
                            let equipBaseInfo = (ItemBaseEquip)itemBaseInfo
-                           //更换外观时,装备位置限制必须相同
+                           // Khi thay đổi ngoại hình, giới hạn vị trí trang bị phải giống nhau
                            where equipBaseInfo.EquipPoint == _equipData.EquipPoint
                            select new ItemBaseViewModel(itemBaseInfo)).ToList();
         };
@@ -223,7 +220,7 @@ public class EquipEditorViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 展示修改属性种类的窗体
+    /// Hiện cửa sổ sửa loại thuộc tính
     /// </summary>
     private void ShowSelectAttrWindow()
     {
@@ -249,7 +246,7 @@ public class EquipEditorViewModel : ViewModelBase
         }
     }
     /// <summary>
-    /// 显示暗器编辑窗体
+    /// Hiện cửa sổ sửa ám khí
     /// </summary>
     private void ShowDarkEquipEditor()
     {
@@ -265,7 +262,7 @@ public class EquipEditorViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 展示选择宝石的窗体
+    /// Hiện cửa sổ chọn ngọc
     /// </summary>
     private void ShowSelectGemWindow(int gemIndex)
     {
@@ -281,13 +278,13 @@ public class EquipEditorViewModel : ViewModelBase
             case 3:
                 gemId = _equipData.Gem3; break;
             default:
-                ShowErrorMessage("出错了", $"无效的宝石位置: {gemIndex}");
+                ShowErrorMessage("Có lỗi xảy ra", $"Vị trí Bảo Thạch không hợp lệ: {gemIndex}");
                 return;
         }
         var selectorWindow = new LvItemSelectorWindow();
         var beforeAction = (LvItemSelectorViewModel vm) =>
         {
-            vm.WindowTitle = "选择宝石";
+            vm.WindowTitle = "Chọn Bảo Thạch";
             vm.InitItemId = gemId;
             vm.ItemList = (from itemBaseInfo in SharedData.ItemBaseMap.Values
                            where itemBaseInfo.TClass == 5
@@ -329,7 +326,7 @@ public class EquipEditorViewModel : ViewModelBase
             if (_equipData.DarkFlag == 0)
             {
                 _equipData.HasCreator = true;
-                _equipData.Creator = "流光";
+                _equipData.Creator = "Lưu Quang";
 
             }
         }
@@ -365,12 +362,12 @@ public class EquipEditorViewModel : ViewModelBase
                 await ItemDbService.InsertItemAsync(connection, _itemsContainer.PosOffset, _itemsContainer.BagMaxSize, itemLog);
             });
             _itemsContainer.InsertNewItem(itemLog);
-            ShowMessage("发放成功", $"发放装备成功,pos={itemLog.Pos}");
+            ShowMessage("Phát thành công", $"Phát Trang Bị thành công, vị trí={itemLog.Pos}");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("发放失败", ex, true);
+            ShowErrorMessage("Phát thất bại", ex, true);
         }
         finally
         {
@@ -389,12 +386,12 @@ public class EquipEditorViewModel : ViewModelBase
             itemLog.ItemBaseId = itemBaseId;
             itemLog.PData = pData;
             itemLog.Creator = creator;
-            ShowMessage("修改成功", "修改装备成功");
+            ShowMessage("Chỉnh sửa thành công", "Chỉnh sửa Trang Bị thành công");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("修改失败", ex, true);
+            ShowErrorMessage("Chỉnh sửa thất bại", ex, true);
         }
         finally
         {

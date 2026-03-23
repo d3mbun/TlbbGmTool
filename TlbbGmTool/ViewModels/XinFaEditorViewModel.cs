@@ -11,7 +11,7 @@ public class XinFaEditorViewModel : ViewModelBase
     private XinFaLogViewModel? _inputXinFaLog;
     private XinFaLogViewModel _xinFaLog = new(new());
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
@@ -57,12 +57,12 @@ public class XinFaEditorViewModel : ViewModelBase
                 await DoSaveXinFaAsync(Connection, _xinFaLog);
             });
             _inputXinFaLog?.CopyFrom(_xinFaLog);
-            ShowMessage("保存成功", "保存心法等级成功");
+            ShowMessage("Lưu thành công", "Lưu cấp độ Tâm Pháp thành công");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("保存失败", ex);
+            ShowErrorMessage("Lưu thất bại", ex);
         }
         finally
         {
@@ -82,7 +82,7 @@ public class XinFaEditorViewModel : ViewModelBase
         {
             Value = xinFaLog.Id
         });
-        // 切换数据库
+        // Chuyển đổi CSDL
         await connection.SwitchGameDbAsync();
         //
         await mySqlCommand.ExecuteNonQueryAsync();

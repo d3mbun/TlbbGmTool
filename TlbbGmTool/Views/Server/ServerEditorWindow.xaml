@@ -1,4 +1,4 @@
-﻿<Window x:Class="liuguang.TlbbGmTool.Views.Server.ServerEditorWindow"
+<Window x:Class="liuguang.TlbbGmTool.Views.Server.ServerEditorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -41,37 +41,37 @@
                 <Setter Property="HorizontalAlignment" Value="Right" />
             </Style>
         </Grid.Resources>
-        <Label Grid.Row="0" Grid.Column="0">名称</Label>
+        <Label Grid.Row="0" Grid.Column="0">Tên</Label>
         <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ServerInfo.ServerName, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label Grid.Row="1" Grid.Column="0">服务器IP</Label>
+        <Label Grid.Row="1" Grid.Column="0">IP Máy chủ</Label>
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ServerInfo.DbHost, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="2" Grid.Column="0">数据库端口</Label>
+        <Label Grid.Row="2" Grid.Column="0">Cổng CSDL</Label>
         <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ServerInfo.DbPort, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="3" Grid.Column="0">账号数据库</Label>
+        <Label Grid.Row="3" Grid.Column="0">CSDL Tài khoản</Label>
         <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ServerInfo.AccountDbName, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="4" Grid.Column="0">游戏数据库</Label>
+        <Label Grid.Row="4" Grid.Column="0">CSDL Game</Label>
         <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ServerInfo.GameDbName, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="5" Grid.Column="0">数据库用户名</Label>
+        <Label Grid.Row="5" Grid.Column="0">User CSDL</Label>
         <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ServerInfo.DbUser, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="6" Grid.Column="0">数据库密码</Label>
+        <Label Grid.Row="6" Grid.Column="0">Pass CSDL</Label>
         <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ServerInfo.DbPassword, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="7" Grid.Column="0">禁用SSL</Label>
-        <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding ServerInfo.DisabledSsl}" VerticalAlignment="Center" ToolTip="通常不需要禁用SSL"/>
-        <Label Grid.Row="8" Grid.Column="0">端类型</Label>
+        <Label Grid.Row="7" Grid.Column="0">Tắt SSL</Label>
+        <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding ServerInfo.DisabledSsl}" VerticalAlignment="Center" ToolTip="Thông thường không cần tắt SSL"/>
+        <Label Grid.Row="8" Grid.Column="0">Loại bản</Label>
         <ComboBox  Grid.Row="8" Grid.Column="1" VerticalContentAlignment="Center" ItemsSource="{Binding ServerTypes}"
                           SelectedItem="{Binding SelectedNode}" DisplayMemberPath="Title" />
-        <Label Grid.Row="9" Grid.Column="0">客户端目录</Label>
+        <Label Grid.Row="9" Grid.Column="0">Thư mục Game</Label>
         <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding ServerInfo.ClientPath, UpdateSourceTrigger=PropertyChanged}" />
-        <Button Grid.Row="9" Grid.Column="2" Margin="5,2,0,2" Padding="12,5" Command="{Binding ChoseFolderCommand}">选择</Button>
+        <Button Grid.Row="9" Grid.Column="2" Margin="5,2,0,2" Padding="12,5" Command="{Binding ChoseFolderCommand}">Chọn</Button>
         <WrapPanel Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center">
             <WrapPanel.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Padding" Value="22,10" />
                 </Style>
             </WrapPanel.Resources>
-            <Button Command="{Binding ConnTestCommand}">测试连接</Button>
+            <Button Command="{Binding ConnTestCommand}">Kiểm tra kết nối</Button>
             <Button Margin="8,0,0,0" IsDefault="True" Command="{Binding SaveServerCommand}">
-                保存
+                Lưu
             </Button>
         </WrapPanel>
     </Grid>

@@ -1,14 +1,14 @@
 namespace liuguang.TlbbGmTool.Models;
 
 /// <summary>
-/// 数据加载状态
+/// Trạng thái tải dữ liệu
 /// </summary>
 public enum DataStatus
 {
-    //未加载
+    //Chưa tải
     NotLoad,
-    //正在加载
+    //Đang tải
     Loading,
-    //已加载
+    //Đã tải
     Loaded
 }

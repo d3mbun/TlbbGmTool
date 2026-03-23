@@ -1,24 +1,24 @@
 namespace liuguang.TlbbGmTool.Models;
 
 /// <summary>
-/// 一条心法等级记录
+/// Một bản ghi cấp độ tâm pháp
 /// </summary>
 public class XinFaLog
 {
     /// <summary>
-    /// 记录id
+    /// ID bản ghi
     /// </summary>
     public int Id;
     /// <summary>
-    /// 角色id
+    /// ID nhân vật
     /// </summary>
     public int CharGuid;
     /// <summary>
-    /// 心法id
+    /// Bản ghi Tâm Pháp
     /// </summary>
     public int XinFaId;
     /// <summary>
-    /// 心法等级
+    /// Cấp độ Tâm Pháp
     /// </summary>
     public int XinFaLevel;
 }

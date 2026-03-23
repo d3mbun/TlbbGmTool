@@ -5,12 +5,12 @@ namespace liuguang.TlbbGmTool.Services;
 public static class CommonItemDataService
 {
     /// <summary>
-    /// 读取数据,放入itemData中
+    /// Đọc dữ liệu, bỏ vào itemData
     /// </summary>
     /// <param name="itemBaseId"></param>
     /// <param name="pData"></param>
     /// <param name="itemData"></param>
-    /// <param name="serverType">端类型</param>
+    /// <param name="serverType">Loại server</param>
     public static void Read(int itemBaseId, byte[] pData, CommonItemDataViewModel itemData, ServerType serverType)
     {
         itemData.ItemBaseId = itemBaseId;
@@ -36,7 +36,7 @@ public static class CommonItemDataService
         itemData.RulerId = readNextByte();
         if (serverType == ServerType.Common)
         {
-            //跳过固定为0的字节
+            //Bỏ qua byte có giá trị cố định là 0
             offset++;
         }
         var costSelf = readNextInt();
@@ -56,11 +56,11 @@ public static class CommonItemDataService
         itemData.ItemParams2 = readNextInt();
     }
     /// <summary>
-    /// 将数据写入到pData中
+    /// Ghi dữ liệu vào pData
     /// </summary>
     /// <param name="itemData"></param>
-    /// <param name="pData">17*4长度的字节数组</param>
-    /// <param name="serverType">端类型</param>
+    /// <param name="pData">Mảng byte độ dài 17*4</param>
+    /// <param name="serverType">Loại máy chủ</param>
     public static void Write(CommonItemDataViewModel itemData, byte[] pData, ServerType serverType)
     {
         int offset = 0;
@@ -83,7 +83,7 @@ public static class CommonItemDataService
         writeNextByte(itemData.RulerId);
         if (serverType == ServerType.Common)
         {
-            //跳过固定为0的字节
+            // Bỏ qua byte cố định là 0
             offset++;
         }
         int costSelf = itemData.CosSelf ? 1 : 0;

@@ -2,7 +2,7 @@ using System.Windows;
 
 namespace liuguang.TlbbGmTool.Views.Item;
 /// <summary>
-/// DarkDataEditorWindow.xaml 的交互逻辑
+/// Logic tương tác cho DarkDataEditorWindow.xaml
 /// </summary>
 public partial class DarkDataEditorWindow : Window
 {

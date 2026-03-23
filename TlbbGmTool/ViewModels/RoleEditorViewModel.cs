@@ -15,7 +15,7 @@ public class RoleEditorViewModel : ViewModelBase
     private RoleViewModel _roleInfo = new(new());
     private List<ComboBoxNode<int>> _menpaiSelection = new();
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
@@ -59,7 +59,7 @@ public class RoleEditorViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 从数据库中读取最新的角色信息
+    /// Đọc thông tin nhân vật mới nhất từ CSDL
     /// </summary>
     /// <returns></returns>
     public async Task LoadRoleInfoAsync()
@@ -83,13 +83,13 @@ public class RoleEditorViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("加载出错", ex);
+            ShowErrorMessage("Lỗi khi tải dữ liệu", ex);
         }
     }
 
     private async Task<RoleViewModel?> LoadRoleInfoAsync(DbConnection dbConnection, int charGuid)
     {
-        //构造SQL语句
+        // Khởi tạo câu lệnh SQL
         const string sql = "SELECT * FROM t_char WHERE charguid=@charguid";
         var mySqlCommand = new MySqlCommand(sql, dbConnection.Conn);
         mySqlCommand.Parameters.Add(new MySqlParameter("@charguid", MySqlDbType.Int32)
@@ -159,11 +159,11 @@ public class RoleEditorViewModel : ViewModelBase
                 await DoSaveRoleAsync(Connection, _roleInfo);
             });
             _inputRoleInfo?.CopyFrom(_roleInfo);
-            ShowMessage("保存成功", "保存角色信息成功");
+            ShowMessage("Lưu thành công", "Lưu thông tin nhân vật thành công");
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("保存角色失败", ex);
+            ShowErrorMessage("Lưu nhân vật thất bại", ex);
         }
         finally
         {
@@ -174,7 +174,7 @@ public class RoleEditorViewModel : ViewModelBase
     private async Task DoSaveRoleAsync(DbConnection connection, RoleViewModel roleInfo)
     {
         var sql = "UPDATE t_char SET";
-        //int类型的字段
+        // Các trường kiểu int
         var intDictionary = new Dictionary<string, int>()
         {
             ["menpai"] = roleInfo.Menpai,
@@ -210,7 +210,7 @@ public class RoleEditorViewModel : ViewModelBase
                                select $"{fieldName}=@{fieldName}");
         sql += " " + string.Join(", ", updateCondition) + " WHERE charguid=@charguid";
         var mySqlCommand = new MySqlCommand(sql, connection.Conn);
-        //构造参数
+        // Khởi tạo tham số
         intDictionary["charguid"] = roleInfo.CharGuid;
         foreach (var keyPair in intDictionary)
         {
@@ -232,7 +232,7 @@ public class RoleEditorViewModel : ViewModelBase
         {
             Value = DbStringService.ToDbString(roleInfo.Title)
         });
-        // 切换数据库
+        // Chuyển đổi CSDL
         await connection.SwitchGameDbAsync();
         //exec
         await mySqlCommand.ExecuteNonQueryAsync();

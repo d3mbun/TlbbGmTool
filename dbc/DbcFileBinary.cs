@@ -135,7 +135,14 @@ public partial class DbcFile
                 {
                     if (p1 > p0)
                     {
-                        cstr = _textEncoding.GetString(stringData, p0, p1 - p0);
+                        if (UseViscii)
+                        {
+                            cstr = EncodingService.DecodeViscii(stringData, p0, p1 - p0);
+                        }
+                        else
+                        {
+                            cstr = _textEncoding.GetString(stringData, p0, p1 - p0);
+                        }
                     }
                     else
                     {

@@ -1,7 +1,7 @@
 namespace liuguang.TlbbGmTool.Models;
 
 /// <summary>
-/// 角色数据记录
+    /// Guid nhân vật
 /// </summary>
 public class Role
 {
@@ -17,7 +17,7 @@ public class Role
     public int XPos;
     public int ZPos;
 
-    //
+    /// Thuộc tính (Str, Spr, Con, Ipr, Dex)
     public int Hp;
     public int Mp;
 

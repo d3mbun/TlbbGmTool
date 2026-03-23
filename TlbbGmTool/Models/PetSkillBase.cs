@@ -2,19 +2,19 @@ namespace liuguang.TlbbGmTool.Models;
 public class PetSkillBase
 {
     /// <summary>
-    /// 技能ID
+    /// ID kỹ năng
     /// </summary>
     public readonly int Id;
     /// <summary>
-    /// 
+    /// Loại kỹ năng
     /// </summary>
     public readonly int SkillType;
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public readonly string Name;
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     public readonly string Description;
 

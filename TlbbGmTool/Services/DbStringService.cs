@@ -3,22 +3,22 @@ using System.Text;
 namespace liuguang.TlbbGmTool.Services;
 
 /// <summary>
-/// 编码转换
+/// Chuyển đổi mã hóa
 /// </summary>
 public static class DbStringService
 {
     /// <summary>
-    /// 文本编码: 简体中文(GB18030)
+    /// Mã hóa văn bản: Tiếng Trung giản thể (GB18030)
     /// </summary>
     private static readonly Encoding StrEncoding = Encoding.GetEncoding("GB18030");
 
     /// <summary>
-    /// 数据库存储编码: 西欧语(ISO)
+    /// Mã hóa lưu trữ CSDL: Tây Âu (ISO)
     /// </summary>
     private static readonly Encoding StorageEncoding = Encoding.GetEncoding("iso-8859-1");
 
     /// <summary>
-    /// 将数据库内的字符串解码为普通字符串
+    /// Giải mã chuỗi từ CSDL sang chuỗi thông thường
     /// </summary>
     /// <param name="dbString"></param>
     /// <returns></returns>
@@ -29,7 +29,7 @@ public static class DbStringService
     }
 
     /// <summary>
-    /// 将普通字符串编码为数据库中的编码
+    /// Mã hóa chuỗi thông thường sang mã hóa của CSDL
     /// </summary>
     /// <param name="commonString"></param>
     /// <returns></returns>

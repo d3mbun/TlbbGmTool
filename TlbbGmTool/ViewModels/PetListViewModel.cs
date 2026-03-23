@@ -14,7 +14,7 @@ public class PetListViewModel : ViewModelBase
     #region Fields
     public int CharGuid;
     /// <summary>
-    /// 数据库连接
+        // Chuyển đổi CSDL
     /// </summary>
     public DbConnection? Connection;
 
@@ -57,7 +57,7 @@ public class PetListViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("加载出错", ex);
+            ShowErrorMessage("Lỗi khi tải dữ liệu", ex);
         }
     }
 
@@ -70,7 +70,7 @@ public class PetListViewModel : ViewModelBase
         {
             Value = charGuid
         });
-        // 切换数据库
+        // Chuyển đổi CSDL
         await connection.SwitchGameDbAsync();
         using var reader = await mySqlCommand.ExecuteReaderAsync();
         if (reader is MySqlDataReader rd)
@@ -145,7 +145,7 @@ public class PetListViewModel : ViewModelBase
         {
             return;
         }
-        if (!Confirm("操作提示", $"你确定要删除珍兽{petInfo.PetName}(ID:{petInfo.Id})吗?"))
+        if (!Confirm("Xác nhận xóa", $"Bạn có chắc chắn muốn xóa Trân Thú {petInfo.PetName} (ID: {petInfo.Id}) không?"))
         {
             return;
         }
@@ -156,11 +156,11 @@ public class PetListViewModel : ViewModelBase
                 await DeletePetAsync(Connection, petInfo);
             });
             PetList.Remove(petInfo);
-            ShowMessage("删除成功", $"删除珍兽{petInfo.PetName}(ID:{petInfo.Id})成功");
+            ShowMessage("Xóa thành công", $"Xóa Trân Thú {petInfo.PetName} (ID: {petInfo.Id}) thành công");
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("删除失败", ex);
+            ShowErrorMessage("Xóa thất bại", ex);
         }
     }
 

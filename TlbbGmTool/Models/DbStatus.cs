@@ -1,14 +1,14 @@
 namespace liuguang.TlbbGmTool.Models;
 
 /// <summary>
-/// 数据库连接状态
+/// Trạng thái kết nối CSDL
 /// </summary>
 public enum DbStatus
 {
-    //未连接
+    //Chưa kết nối
     NotConnect,
-    //正在连接
+    //Đang kết nối
     Connecting,
-    //已连接
+    //Đã kết nối
     Connected
 }

@@ -10,7 +10,7 @@ using liuguang.TlbbGmTool.Models;
 namespace liuguang.TlbbGmTool.Services;
 
 /// <summary>
-/// 加载区服列表配置文件的工具
+/// Công cụ tải tệp cấu hình danh sách máy chủ
 /// </summary>
 public static class ServerService
 {
@@ -25,7 +25,7 @@ public static class ServerService
         var configFilePath = GetConfigFilePath();
         if (!File.Exists(configFilePath))
         {
-            throw new Exception($"配置文件{configFilePath}不存在");
+            throw new Exception($"Tệp cấu hình {configFilePath} không tồn tại");
         }
 
         string fileContent;
@@ -37,7 +37,7 @@ public static class ServerService
             }
             catch (Exception e)
             {
-                throw new Exception($"读取配置文件{configFilePath}出错,{e.Message}");
+                throw new Exception($"Lỗi khi đọc tệp cấu hình {configFilePath}, {e.Message}");
             }
         }
 
@@ -48,7 +48,7 @@ public static class ServerService
         }
         catch (Exception e)
         {
-            throw new Exception($"解析配置文件{configFilePath}出错,{e.Message}");
+            throw new Exception($"Lỗi khi phân tích tệp cấu hình {configFilePath}, {e.Message}");
         }
 
         var serverList = from serverEl in
@@ -97,7 +97,7 @@ public static class ServerService
         }
         catch (Exception e)
         {
-            throw new Exception($"保存配置文件{configFilePath}出错,{e.Message}");
+            throw new Exception($"Lỗi khi lưu tệp cấu hình {configFilePath}, {e.Message}");
         }
     }
 }

@@ -16,7 +16,7 @@ public class AccountEditorViewModel : ViewModelBase
     private UserAccountViewModel? _inputUserAccount;
     private readonly UserAccountViewModel _userAccount = new(new());
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
@@ -33,11 +33,11 @@ public class AccountEditorViewModel : ViewModelBase
     }
     public ObservableCollection<UserAccountViewModel>? AccountList { get; set; }
 
-    public string WindowTitle => (_inputUserAccount is null) ? "添加新账号" : "修改账户信息";
+    public string WindowTitle => (_inputUserAccount is null) ? "Thêm tài khoản mới" : "Chỉnh sửa thông tin tài khoản";
 
     public List<ComboBoxNode<bool>> StatusSelectionList { get; } = new() {
-        new("正常",false),
-        new("已锁定",true),
+        new("Bình thường",false),
+        new("Đã khóa",true),
     };
 
     public bool IsSaving
@@ -99,12 +99,12 @@ public class AccountEditorViewModel : ViewModelBase
                 });
                 AccountList.Add(_userAccount);
             }
-            ShowMessage("保存成功", "保存账号信息成功");
+            ShowMessage("Lưu thành công", "Lưu thông tin tài khoản thành công");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("保存失败", ex);
+            ShowErrorMessage("Lưu thất bại", ex);
         }
         finally
         {
@@ -118,7 +118,7 @@ public class AccountEditorViewModel : ViewModelBase
             "UPDATE account SET name=@name,password=@password" +
             ",question=@question,answer=@answer,email=@email,id_card=@id_card,point=@point WHERE id=@id";
         var mySqlCommand = new MySqlCommand(sql, connection.Conn);
-        //字符串参数
+        // Tham số chuỗi
         var paramDictionary = new Dictionary<string, string?>
         {
             ["name"] = userAccount.Name,
@@ -135,7 +135,7 @@ public class AccountEditorViewModel : ViewModelBase
                 Value = keypair.Value
             });
         }
-        //int类型参数
+        // Tham số kiểu int
         mySqlCommand.Parameters.Add(new MySqlParameter("@point", MySqlDbType.Int32)
         {
             Value = userAccount.Point
@@ -144,7 +144,7 @@ public class AccountEditorViewModel : ViewModelBase
         {
             Value = userAccount.Id
         });
-        // 切换数据库
+        // Chuyển đổi CSDL
         await connection.SwitchAccountDbAsync();
         //
         await mySqlCommand.ExecuteNonQueryAsync();

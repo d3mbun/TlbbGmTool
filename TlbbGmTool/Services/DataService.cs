@@ -2,7 +2,7 @@ using System;
 
 namespace liuguang.TlbbGmTool.Services;
 /// <summary>
-/// 处理数据读写、转换
+/// Xử lý đọc viết và chuyển đổi dữ liệu
 /// </summary>
 public static class DataService
 {
@@ -90,7 +90,7 @@ public static class DataService
     }
 
     /// <summary>
-    /// 将字节数组转化为int数组
+    /// Chuyển đổi mảng byte sang mảng int
     /// </summary>
     /// <param name="pData"></param>
     /// <returns></returns>
@@ -105,7 +105,7 @@ public static class DataService
     }
 
     /// <summary>
-    /// 把int数组转化为字节数组
+    /// Chuyển đổi mảng int sang mảng byte
     /// </summary>
     /// <param name="pArray"></param>
     /// <returns></returns>
@@ -120,7 +120,7 @@ public static class DataService
     }
 
     /// <summary>
-    /// 把16进制string转化为字节数组
+    /// Chuyển đổi chuỗi Hex sang mảng byte
     /// </summary>
     /// <param name="pArray"></param>
     /// <returns></returns>
@@ -135,7 +135,7 @@ public static class DataService
         return pData;
     }
     /// <summary>
-    /// 将字节数组转化为16进制字符串
+    /// Chuyển đổi mảng byte sang chuỗi Hex
     /// </summary>
     /// <param name="pData"></param>
     /// <returns></returns>

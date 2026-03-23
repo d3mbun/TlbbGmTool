@@ -14,7 +14,7 @@ public class RoleListViewModel : ViewModelBase
     #region Fields
     private bool _isSearching = false;
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
@@ -73,7 +73,7 @@ public class RoleListViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("搜索出错", ex);
+            ShowErrorMessage("Lỗi khi tìm kiếm", ex);
         }
         finally
         {
@@ -84,7 +84,7 @@ public class RoleListViewModel : ViewModelBase
     private async Task<List<RoleViewModel>> DoSearchRoleAsync(DbConnection dbConnection, string roleSearchText, string accountSearchText)
     {
         var roleList = new List<RoleViewModel>();
-        //构造SQL语句
+        // Khởi tạo câu lệnh SQL
         var sql = "SELECT * FROM t_char";
         var searchDictionary = new Dictionary<string, string>();
         var noSearchText = (string.IsNullOrEmpty(roleSearchText) && string.IsNullOrEmpty(accountSearchText));
@@ -120,7 +120,7 @@ public class RoleListViewModel : ViewModelBase
                 Value = $"%{keyPair.Value}%"
             });
         }
-        //切换数据库
+        // Chuyển đổi CSDL
         await dbConnection.SwitchGameDbAsync();
 
         using var reader = await mySqlCommand.ExecuteReaderAsync();
@@ -189,8 +189,8 @@ public class RoleListViewModel : ViewModelBase
         {
             return;
         }
-        var tipText = isBanRole ? "封禁" : "解封";
-        if (!Confirm("操作提示", $"你确定要{tipText}角色 {roleInfo.CharName}吗?"))
+        var tipText = isBanRole ? "Khóa" : "Mở khóa";
+        if (!Confirm("Xác nhận thao tác", $"Bạn có chắc chắn muốn {tipText} nhân vật {roleInfo.CharName} không?"))
         {
             return;
         }
@@ -203,12 +203,12 @@ public class RoleListViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            ShowErrorMessage($"{tipText}失败", ex);
+            ShowErrorMessage($"{tipText} thất bại", ex);
             return;
         }
 
-        ShowMessage($"{tipText}成功",
-            $"{tipText}角色 {roleInfo.CharName}成功");
+        ShowMessage($"{tipText} thành công",
+            $"{tipText} nhân vật {roleInfo.CharName} thành công");
     }
 
     private async Task UpdateRoleSettingsAsync(DbConnection dbConnection, int charguid, bool isBanRole)

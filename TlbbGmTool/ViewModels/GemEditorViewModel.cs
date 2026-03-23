@@ -17,7 +17,7 @@ public class GemEditorViewModel : ViewModelBase
     private GemDataViewModel _itemData = new();
     private BagContainer? _itemsContainer;
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
@@ -37,11 +37,8 @@ public class GemEditorViewModel : ViewModelBase
     {
         get
         {
-            if (_inputItemLog is null)
-            {
-                return "发放宝石";
-            }
-            return "修改宝石 " + _itemData.ItemName;
+                return "Phát Bảo Thạch";
+            return "Chỉnh sửa Bảo Thạch " + _itemData.ItemName;
         }
     }
     public ItemLogViewModel ItemLog
@@ -69,7 +66,7 @@ public class GemEditorViewModel : ViewModelBase
     }
     public GemDataViewModel ItemData => _itemData;
     /// <summary>
-    /// 数量编辑功能的状态
+    /// Trạng thái tính năng sửa số lượng
     /// </summary>
     public bool CountEditorEnabled => (_itemData.MaxSize > 1);
     #endregion
@@ -87,7 +84,7 @@ public class GemEditorViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 当选择一个新的宝石id时，初始化对应的数据
+    /// Khởi tạo dữ liệu tương ứng khi chọn ID ngọc mới
     /// </summary>
     /// <param name="itemBase"></param>
     private void LoadNewItemBase(ItemBaseViewModel itemBase)
@@ -118,14 +115,14 @@ public class GemEditorViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 展示修改物品id的窗体
+    /// Hiện cửa sổ sửa ID vật phẩm
     /// </summary>
     private void ShowSelectItemWindow()
     {
         var selectorWindow = new LvItemSelectorWindow();
         var beforeAction = (LvItemSelectorViewModel vm) =>
         {
-            vm.WindowTitle = "选择宝石";
+            vm.WindowTitle = "Chọn Bảo Thạch";
             vm.InitItemId = _itemData.ItemBaseId;
             vm.ItemList = (from itemBaseInfo in SharedData.ItemBaseMap.Values
                            where itemBaseInfo.TClass == 5
@@ -182,12 +179,12 @@ public class GemEditorViewModel : ViewModelBase
                 await ItemDbService.InsertItemAsync(connection, _itemsContainer.PosOffset, _itemsContainer.BagMaxSize, itemLog);
             });
             _itemsContainer.InsertNewItem(itemLog);
-            ShowMessage("发放成功", $"发放宝石成功,pos={itemLog.Pos}");
+            ShowMessage("Phát thành công", $"Phát Bảo Thạch thành công, vị trí={itemLog.Pos}");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("发放失败", ex, true);
+            ShowErrorMessage("Phát thất bại", ex, true);
         }
         finally
         {
@@ -205,12 +202,12 @@ public class GemEditorViewModel : ViewModelBase
             });
             itemLog.ItemBaseId = itemBaseId;
             itemLog.PData = pData;
-            ShowMessage("修改成功", "修改宝石成功");
+            ShowMessage("Chỉnh sửa thành công", "Chỉnh sửa Bảo Thạch thành công");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("修改失败", ex, true);
+            ShowErrorMessage("Chỉnh sửa thất bại", ex, true);
         }
         finally
         {

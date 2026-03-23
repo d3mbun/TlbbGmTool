@@ -71,7 +71,7 @@ public class AccountListViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("搜索出错", ex);
+            ShowErrorMessage("Lỗi khi tìm kiếm", ex);
         }
         finally
         {
@@ -158,7 +158,7 @@ public class AccountListViewModel : ViewModelBase
         {
             return;
         }
-        if (!Confirm("删除提示", $"你确定要删除账号{accountInfo.Name}吗?"))
+        if (!Confirm("Xác nhận xóa", $"Bạn có chắc chắn muốn xóa tài khoản {accountInfo.Name} không?"))
         {
             return;
         }
@@ -169,11 +169,11 @@ public class AccountListViewModel : ViewModelBase
                 await DeleteAccountAsync(Connection, accountInfo.Name);
             });
             AccountList.Remove(accountInfo);
-            ShowMessage("删除成功", $"删除账号{accountInfo.Name}成功");
+            ShowMessage("Xóa thành công", $"Xóa tài khoản {accountInfo.Name} thành công");
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("删除失败", ex, true);
+            ShowErrorMessage("Xóa thất bại", ex, true);
         }
     }
     private async Task DeleteAccountAsync(DbConnection connection, string name)

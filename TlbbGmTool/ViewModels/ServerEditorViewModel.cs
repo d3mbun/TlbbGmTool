@@ -33,7 +33,7 @@ public class ServerEditorViewModel : ViewModelBase
     }
     public ObservableCollection<GameServerViewModel>? ServerList { get; set; }
 
-    public string WindowTitle => (_inputServerInfo is null) ? "添加服务器" : "修改服务器";
+    public string WindowTitle => (_inputServerInfo is null) ? "Thêm máy chủ" : "Chỉnh sửa máy chủ";
     public List<ComboBoxNode<ServerType>> ServerTypes => _serverTypes;
     public ComboBoxNode<ServerType> SelectedNode
     {
@@ -58,8 +58,8 @@ public class ServerEditorViewModel : ViewModelBase
             SaveServerCommand.RaiseCanExecuteChanged();
             ConnTestCommand.RaiseCanExecuteChanged();
         };
-        _serverTypes.Add(new("经典端", ServerType.Common));
-        _serverTypes.Add(new("怀旧端", ServerType.HuaiJiu));
+        _serverTypes.Add(new("Bản truyền thống", ServerType.Common));
+        _serverTypes.Add(new("Bản hoài cổ", ServerType.HuaiJiu));
         _selectedNode = _serverTypes[0];
     }
 
@@ -96,11 +96,11 @@ public class ServerEditorViewModel : ViewModelBase
 
     private async void SaveServerConfig()
     {
-        //检测客户端目录是否有效
+        // Kiểm tra thư mục client có hợp lệ không
         var configAxpPath = Path.Combine(ServerInfo.ClientPath, "Data", "Config.axp");
         if (!File.Exists(configAxpPath))
         {
-            ShowErrorMessage("无效的路径", $"客户端路径[{ServerInfo.ClientPath}]无效");
+            ShowErrorMessage("Đường dẫn không hợp lệ", $"Đường dẫn client [{ServerInfo.ClientPath}] không hợp lệ");
             return;
         }
         ServerInfo.GameServerType = _selectedNode.Value;
@@ -115,7 +115,7 @@ public class ServerEditorViewModel : ViewModelBase
             //update
             _inputServerInfo.CopyFrom(ServerInfo);
         }
-        //保存配置
+        // Lưu cấu hình
         var serverList = from item in ServerList select item.AsServer();
         if (serverList is null)
         {
@@ -127,7 +127,7 @@ public class ServerEditorViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("保存配置失败", ex);
+            ShowErrorMessage("Lưu cấu hình thất bại", ex);
             return;
         }
         OwnedWindow?.Close();
@@ -157,7 +157,7 @@ public class ServerEditorViewModel : ViewModelBase
         };
         try
         {
-            //在后台运行，防止阻塞ui线程
+            // Chạy ngầm, tránh tắc nghẽn luồng UI
             await Task.Run(async () =>
             {
                 await mySqlConnection.OpenAsync();
@@ -167,7 +167,7 @@ public class ServerEditorViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            ShowErrorMessage("连接失败", e);
+            ShowErrorMessage("Kết nối thất bại", e);
             return;
         }
         finally
@@ -176,6 +176,6 @@ public class ServerEditorViewModel : ViewModelBase
             _isConnecting = false;
             ConnTestCommand.RaiseCanExecuteChanged();
         }
-        ShowMessage("连接成功", "连接数据库成功");
+        ShowMessage("Kết nối thành công", "Kết nối cơ sở dữ liệu thành công");
     }
 }

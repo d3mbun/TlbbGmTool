@@ -8,17 +8,17 @@ namespace liuguang.TlbbGmTool.Models;
 public class MainWindowModel
 {
     /// <summary>
-    /// 数据加载状态
+    /// Trạng thái tải dữ liệu
     /// </summary>
     public DataStatus DataStatus = DataStatus.NotLoad;
 
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection Connection = new();
 
     /// <summary>
-    /// 数据库版本
+    /// Phiên bản CSDL
     /// </summary>
     public string DbVersion = string.Empty;
 

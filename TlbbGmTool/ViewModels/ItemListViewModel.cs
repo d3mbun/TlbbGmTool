@@ -15,7 +15,7 @@ public class ItemListViewModel : ViewModelBase
 {
     #region Fields
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
@@ -29,27 +29,27 @@ public class ItemListViewModel : ViewModelBase
     private bool CanInsertItem => ItemsContainer.ItemList.Count < ItemsContainer.BagMaxSize;
 
     /// <summary>
-    /// 弹出物品编辑窗体
+    /// Hiện cửa sổ sửa vật phẩm
     /// </summary>
     public Command EditItemCommand { get; }
     /// <summary>
-    /// 复制物品命令
+    /// Lệnh sao chép vật phẩm
     /// </summary>
     public Command CopyItemCommand { get; }
     /// <summary>
-    /// 删除物品命令
+    /// Lệnh xóa vật phẩm
     /// </summary>
     public Command DeleteItemCommand { get; }
     /// <summary>
-    /// 显示发放装备窗体
+    /// Hiện cửa sổ phát trang bị
     /// </summary>
     public Command AddEquipCommand { get; }
     /// <summary>
-    /// 显示发放宝石窗体
+    /// Hiện cửa sổ phát ngọc
     /// </summary>
     public Command AddGemCommand { get; }
     /// <summary>
-    /// 显示发放道具窗体
+    /// Hiện cửa sổ phát đạo cụ
     /// </summary>
     public Command AddItemCommand { get; }
     #endregion
@@ -67,7 +67,7 @@ public class ItemListViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 当物品列表的长度变化时，更新发放按钮的状态(包满了就不允许发放了)
+    /// Khi độ dài danh sách vật phẩm thay đổi, cập nhật trạng thái nút phát (không cho phép phát nếu túi đầy)
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -104,7 +104,7 @@ public class ItemListViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("加载出错", ex);
+            ShowErrorMessage("Lỗi khi tải dữ liệu", ex);
         }
     }
 
@@ -124,7 +124,7 @@ public class ItemListViewModel : ViewModelBase
         }
         else if ((itemLog.ItemClass >= 2) && (itemLog.ItemClass <= 4))
         {
-            //藏宝图
+            // Bản đồ kho báu
             if (itemLog.ItemBaseId == 30000000)
             {
                 ShowDialog(new StoreMapEditorWindow(), (CommonItemEditorViewModel vm) =>
@@ -154,7 +154,7 @@ public class ItemListViewModel : ViewModelBase
         }
         else
         {
-            ShowErrorMessage("出错了", $"未知类型 class={itemLog.ItemClass}");
+            ShowErrorMessage("Có lỗi xảy ra", $"Loại không xác định: class={itemLog.ItemClass}");
         }
     }
     private async void ProcessCopyItem(object? parameter)
@@ -167,7 +167,7 @@ public class ItemListViewModel : ViewModelBase
         {
             return;
         }
-        if (!Confirm("复制提示", $"你确定要复制{itemLog.ItemName}吗?"))
+        if (!Confirm("Xác nhận sao chép", $"Bạn có chắc chắn muốn sao chép {itemLog.ItemName} không?"))
         {
             return;
         }
@@ -188,11 +188,11 @@ public class ItemListViewModel : ViewModelBase
                 await ItemDbService.InsertItemAsync(Connection, ItemsContainer.PosOffset, ItemsContainer.BagMaxSize, newItemLog);
             });
             ItemsContainer.InsertNewItem(newItemLog);
-            ShowMessage("复制成功", $"复制{newItemLog.ItemName}成功,pos={newItemLog.Pos}");
+            ShowMessage("Sao chép thành công", $"Sao chép {newItemLog.ItemName} thành công, vị trí={newItemLog.Pos}");
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("复制失败", ex, true);
+            ShowErrorMessage("Sao chép thất bại", ex, true);
         }
     }
 
@@ -206,7 +206,7 @@ public class ItemListViewModel : ViewModelBase
         {
             return;
         }
-        if (!Confirm("删除提示", $"你确定要删除{itemLog.ItemName}吗?"))
+        if (!Confirm("Xác nhận xóa", $"Bạn có chắc chắn muốn xóa {itemLog.ItemName} không?"))
         {
             return;
         }
@@ -217,11 +217,11 @@ public class ItemListViewModel : ViewModelBase
                 await ItemDbService.DeleteItemAsync(Connection, itemLog.Id);
             });
             ItemsContainer.ItemList.Remove(itemLog);
-            ShowMessage("删除成功", $"删除{itemLog.ItemName}成功");
+            ShowMessage("Xóa thành công", $"Xóa {itemLog.ItemName} thành công");
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("删除失败", ex, true);
+            ShowErrorMessage("Xóa thất bại", ex, true);
         }
 
     }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using liuguang.Dbc;
 using liuguang.TlbbGmTool.Common;
 using liuguang.TlbbGmTool.Models;
 using liuguang.TlbbGmTool.Services;
@@ -24,14 +25,14 @@ public class MainWindowViewModel : ViewModelBase
     #region Properties
     public override Window? OwnedWindow => Application.Current.MainWindow;
     /// <summary>
-    /// 供Page调用
+    /// Gọi từ Page
     /// </summary>
     public MainWindowModel MainModel => _mainWindowModel;
     public string WindowTitle
     {
         get
         {
-            var title = "天龙八部GM工具 - by 流光";
+            var title = "TLBB GM Tool - by Lưu Quang";
 #if DEBUG
             title = "[debug]" + title;
 #endif
@@ -42,7 +43,7 @@ public class MainWindowViewModel : ViewModelBase
 
             if (_mainWindowModel.DataStatus == DataStatus.Loading)
             {
-                title += "(加载配置中...)";
+                title += "(Đang tải cấu hình...)";
             }
 
             return title;
@@ -62,7 +63,7 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 游戏数据是否已经完成加载
+    /// Dữ liệu game đã tải xong chưa
     /// </summary>
     public bool GameDataLoaded
         => _mainWindowModel.DataStatus == DataStatus.Loaded;
@@ -102,7 +103,7 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 是否可以连接
+    /// Có thể kết nối không
     /// </summary>
     /// <returns></returns>
     public bool CanConnServer
@@ -119,7 +120,7 @@ public class MainWindowViewModel : ViewModelBase
 
 
     /// <summary>
-    /// 是否可以断开
+    /// Có thể ngắt kết nối không
     /// </summary>
     public bool CanDisConnServer
     {
@@ -158,7 +159,7 @@ public class MainWindowViewModel : ViewModelBase
             {
                 return;
             }
-            //默认选择第一个
+            // Mặc định chọn cái đầu tiên
             if (_selectedServer is null || !ServerList.Contains(_selectedServer))
             {
                 SelectedServer = ServerList.First();
@@ -185,14 +186,14 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception e)
         {
             CurrentDbStatus = DbStatus.NotConnect;
-            ShowErrorMessage("连接数据库失败", e);
+            ShowErrorMessage("Kết nối cơ sở dữ liệu thất bại", e);
             return;
         }
         CurrentDbStatus = DbStatus.Connected;
-        //重置选项
+        // Đặt lại tùy chọn
         LvItemSelectorViewModel.ResetLastData();
-        //数据库连接成功过
-        //从客户端的axp文件中加载数据
+        // CSDL đã từng kết nối thành công
+        // Tải dữ liệu từ tệp axp của client
         this.DataStatus = DataStatus.Loading;
         try
         {
@@ -208,7 +209,7 @@ public class MainWindowViewModel : ViewModelBase
         {
             this.DataStatus = DataStatus.NotLoad;
             var stackTrace = (ex.InnerException ?? ex).StackTrace;
-            ShowErrorMessage("加载txt文件失败", $"{ex.Message}\n{stackTrace}");
+            ShowErrorMessage("Tải tệp txt thất bại", $"{ex.Message}\n{stackTrace}");
         }
     }
 
@@ -224,7 +225,7 @@ public class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            ShowErrorMessage("断开数据库失败", e);
+            ShowErrorMessage("Ngắt kết nối cơ sở dữ liệu thất bại", e);
         }
         _mainWindowModel.DbVersion = string.Empty;
         RaisePropertyChanged(nameof(WindowTitle));
@@ -233,7 +234,7 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 关闭之前,释放资源
+    /// Giải phóng tài nguyên trước khi đóng
     /// </summary>
     /// <returns></returns>
     public async Task FreeResourceAsync()
@@ -254,7 +255,7 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// 加载数据
+    /// Tải dữ liệu
     /// </summary>
     /// <returns></returns>
     public async Task LoadDataAsync()
@@ -268,16 +269,17 @@ public class MainWindowViewModel : ViewModelBase
 #if NET
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 #endif
+            DbcFile.UseViscii = true;
             await Task.WhenAll(taskList);
         }
         catch (Exception e)
         {
-            ShowErrorMessage("加载配置出错", e);
+            ShowErrorMessage("Lỗi khi tải cấu hình", e);
         }
     }
 
     /// <summary>
-    /// 加载区服配置列表
+    /// Tải danh sách cấu hình máy chủ
     /// </summary>
     /// <returns></returns>
     private async Task LoadServerListAsync()

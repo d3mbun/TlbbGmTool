@@ -15,19 +15,19 @@ public class PetEditorViewModel : ViewModelBase
     private PetLogViewModel? _inputPetInfo;
     private PetLogViewModel _petInfo = new(new());
     private List<ComboBoxNode<int>> _aiTypeSelection = new() {
-        new("胆小",0),
-        new("谨慎",1),
-        new("忠诚",2),
-        new("精明",3),
-        new("勇敢",4)
+        new("Nhát gan",0),
+        new("Cẩn trọng",1),
+        new("Trung thành",2),
+        new("Nhanh nhẹn",3),
+        new("Dũng cảm",4)
     };
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
     #region Properties
-    public string WindowTitle => $"修改 {_petInfo.PetName} (ID: {_petInfo.Id})";
+    public string WindowTitle => $"Chỉnh sửa {_petInfo.PetName} (ID: {_petInfo.Id})";
     public PetLogViewModel PetInfo
     {
         get => _petInfo;
@@ -84,12 +84,12 @@ public class PetEditorViewModel : ViewModelBase
                 await DoSavePetAsync(Connection, _petInfo);
             });
             _inputPetInfo?.CopyFrom(_petInfo);
-            ShowMessage("保存成功", "保存珍兽信息成功");
+            ShowMessage("Lưu thành công", "Lưu thông tin Trân Thú thành công");
             OwnedWindow?.Close();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("保存珍兽信息失败", ex);
+            ShowErrorMessage("Lưu thông tin Trân Thú thất bại", ex);
         }
         finally
         {
@@ -100,7 +100,7 @@ public class PetEditorViewModel : ViewModelBase
     private async Task DoSavePetAsync(DbConnection connection, PetLogViewModel petInfo)
     {
         var sql = "UPDATE t_pet SET";
-        //int类型的字段
+        // Các trường kiểu int
         var intDictionary = new Dictionary<string, int>()
         {
             ["level"] = petInfo.Level,
@@ -149,7 +149,7 @@ public class PetEditorViewModel : ViewModelBase
         {
             Value = petInfo.Id
         });
-        // 切换数据库
+        // Chuyển đổi CSDL
         await connection.SwitchGameDbAsync();
         //exec
         await mySqlCommand.ExecuteNonQueryAsync();

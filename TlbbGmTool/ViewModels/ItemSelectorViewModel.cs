@@ -8,29 +8,29 @@ using System.Linq;
 namespace liuguang.TlbbGmTool.ViewModels;
 
 /// <summary>
-/// 装备选择器
+/// Trình chọn trang bị
 /// </summary>
 public class ItemSelectorViewModel : ViewModelBase
 {
     #region Fields
     /// <summary>
-    /// 所有的装备列表
+    /// Toàn bộ danh sách trang bị
     /// </summary>
     private List<ItemBaseViewModel> _itemList = new();
     /// <summary>
-    /// 符合筛选条件的装备列表
+    /// Danh sách trang bị phù hợp điều kiện lọc
     /// </summary>
     private List<ItemBaseViewModel> _filterItemList = new();
     private int _initItemId;
 
-    private string _windowTitle = "物品选择器";
+    private string _windowTitle = "Bộ chọn vật phẩm";
     private int _selectedType = 0;
     private byte? _minLevel;
     private byte? _maxLevel;
     private string _searchText = string.Empty;
     private readonly PaginationViewModel _pagination = new();
     /// <summary>
-    /// 每页最大展示量
+    /// Số lượng hiển thị tối đa mỗi trang
     /// </summary>
     private const int _pageLimit = 20;
     #endregion
@@ -112,7 +112,7 @@ public class ItemSelectorViewModel : ViewModelBase
     }
 
     public List<ComboBoxNode<int>> ShortTypeSelection { get; } = new() {
-        new("全部",0)
+        new("Tất cả",0)
     };
 
     public IEnumerable<ItemBaseViewModel> CurrentPageItemList
@@ -162,7 +162,7 @@ public class ItemSelectorViewModel : ViewModelBase
                            where (!_minLevel.HasValue) || itemBaseInfo.ItemLevel >= _minLevel.Value
                            where (!_maxLevel.HasValue) || itemBaseInfo.ItemLevel <= _maxLevel.Value
                            where _selectedType == 0 || itemBaseInfo.ItemShortTypeString == ShortTypeSelection[_selectedType].Title
-                           where itemBaseInfo.ItemName.IndexOf(_searchText, StringComparison.Ordinal) >= 0
+                           where itemBaseInfo.ItemName.IndexOf(_searchText, StringComparison.OrdinalIgnoreCase) >= 0
                            select itemBaseInfo).ToList();
         _pagination.SetCount(_filterItemList.Count, _pageLimit);
         RaisePropertyChanged(nameof(CurrentPageItemList));

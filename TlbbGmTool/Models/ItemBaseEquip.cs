@@ -6,11 +6,11 @@ public class ItemBaseEquip : ItemBase
     public readonly int MaterialCapacity;
     public readonly ushort EquipVisual;
     /// <summary>
-    /// 最大耐久
+    /// Độ bền tối đa
     /// </summary>
     public readonly byte MaxDurPoint;
     /// <summary>
-    /// 属性值配置int[64]/null
+    /// Cấu hình giá trị thuộc tính int[64]/null
     /// </summary>
     public readonly int[]? EquipAttrValues;
 

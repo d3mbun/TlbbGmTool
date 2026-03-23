@@ -27,7 +27,7 @@ public class XinFaLogViewModel : NotifyBase
         {
             if (SetProperty(ref _xinFaLog.XinFaId, value))
             {
-                //用于editor中
+                //Dùng trong editor
                 RaisePropertyChanged(nameof(XinFaName));
                 RaisePropertyChanged(nameof(XinFaDescription));
             }

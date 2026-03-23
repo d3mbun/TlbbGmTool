@@ -5,12 +5,12 @@ namespace liuguang.TlbbGmTool.Services;
 public static class GemDataService
 {
     /// <summary>
-    /// 读取数据,放入gemData中
+    /// Đọc dữ liệu, bỏ vào gemData
     /// </summary>
     /// <param name="itemBaseId"></param>
     /// <param name="pData"></param>
     /// <param name="gemData"></param>
-    /// <param name="serverType">端类型</param>
+    /// <param name="serverType">Loại server</param>
     public static void Read(int itemBaseId, byte[] pData, GemDataViewModel gemData, ServerType serverType)
     {
         gemData.ItemBaseId = itemBaseId;
@@ -36,20 +36,20 @@ public static class GemDataService
         gemData.RulerId = readNextByte();
         if (serverType == ServerType.Common)
         {
-            //跳过固定为0的字节
+            //Bỏ qua byte có giá trị cố định là 0
             offset++;
         }
         gemData.BasePrice = readNextUInt();
         gemData.AttrType = readNextByte();
         if (serverType == ServerType.HuaiJiu)
         {
-            //跳过固定为0的字节
+            //Bỏ qua byte có giá trị cố định là 0
             offset++;
         }
         gemData.AttrValue = readNextUshort();
         if (serverType == ServerType.HuaiJiu)
         {
-            //跳过2字节
+            //Nhảy qua 2 byte
             offset += 2;
             gemData.Count = readNextByte();
         }
@@ -59,11 +59,11 @@ public static class GemDataService
         }
     }
     /// <summary>
-    /// 将数据写入到pData中
+    /// Ghi dữ liệu vào pData
     /// </summary>
     /// <param name="gemData"></param>
-    /// <param name="pData">17*4长度的字节数组</param>
-    /// <param name="serverType">端类型</param>
+    /// <param name="pData">Mảng byte có độ dài 17*4</param>
+    /// <param name="serverType">Loại máy chủ</param>
     /// <param name="serverType">端类型</param>
     public static void Write(GemDataViewModel gemData, byte[] pData, ServerType serverType)
     {
@@ -87,14 +87,14 @@ public static class GemDataService
         writeNextByte(gemData.RulerId);
         if (serverType == ServerType.Common)
         {
-            //跳过固定为0的字节
+            //Bỏ qua byte có giá trị cố định là 0
             offset++;
         }
         writeNextUInt(gemData.BasePrice);
         writeNextByte(gemData.AttrType);
         if (serverType == ServerType.HuaiJiu)
         {
-            //跳过固定为0的字节
+            //Bỏ qua byte có giá trị cố định là 0
             offset++;
         }
         writeNextUshort(gemData.AttrValue);

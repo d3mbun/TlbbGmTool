@@ -70,7 +70,7 @@ public class UserAccountViewModel : NotifyBase
         set => IdCard = (value ? "1" : null);
     }
 
-    public string IsLockText => (_userAccount.IdCard == "1") ? "已锁定" : "正常";
+    public string IsLockText => (_userAccount.IdCard == "1") ? "Đã khóa" : "Bình thường";
     #endregion
 
     public UserAccountViewModel(UserAccount userAccount) { _userAccount = userAccount; }

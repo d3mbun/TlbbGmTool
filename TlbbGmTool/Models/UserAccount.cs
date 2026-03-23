@@ -1,7 +1,7 @@
 namespace liuguang.TlbbGmTool.Models;
 
 /// <summary>
-/// 一条账号记录
+/// Một bản ghi tài khoản
 /// </summary>
 public class UserAccount
 {

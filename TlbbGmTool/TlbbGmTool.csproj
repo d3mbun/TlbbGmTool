@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
@@ -11,9 +11,9 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<ApplicationIcon>images\icon.ico</ApplicationIcon>
-		<AssemblyTitle>天龙八部GM工具</AssemblyTitle>
-		<Description>一个普通的GM工具</Description>
-		<Company>流光</Company>
+		<AssemblyTitle>TLBB GM Tool</AssemblyTitle>
+		<Description>Công cụ GM Thiên Long Bát Bộ thông thường</Description>
+		<Company>liuguang</Company>
 		<Product>TlbbGmTool</Product>
 		<Copyright>MIT License</Copyright>
 		<AssemblyVersion>1.0.6.0</AssemblyVersion>

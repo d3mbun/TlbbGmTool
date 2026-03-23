@@ -25,7 +25,7 @@ public static class ItemDbService
         {
             Value = posBegin + limitCount
         });
-        // 切换数据库
+        // Chuyển đổi CSDL
         await connection.SwitchGameDbAsync();
         using var reader = await mySqlCommand.ExecuteReaderAsync();
         if (reader is MySqlDataReader rd)
@@ -62,7 +62,7 @@ public static class ItemDbService
         return itemList;
     }
     /// <summary>
-    /// 获取下一个有效的pos
+    /// Lấy vị trí (pos) hợp lệ tiếp theo
     /// </summary>
     /// <param name="connection"></param>
     /// <param name="charGuid"></param>
@@ -87,7 +87,7 @@ public static class ItemDbService
         {
             Value = endPos
         });
-        //初始化标记
+        // Khởi tạo đánh dấu
         var findPos = false;
         var currentPos = posBegin;
         using (var reader = await mySqlCommand.ExecuteReaderAsync())
@@ -113,10 +113,10 @@ public static class ItemDbService
         }
         if (!findPos)
         {
-            throw new Exception("找不到有效的pos");
+            throw new Exception("Không tìm thấy vị trí (pos) hợp lệ");
         }
 
-        //清理pos
+        // Xóa vị trí (pos)
         const string delSql = "DELETE FROM t_iteminfo WHERE charguid=@charguid AND pos=@pos";
         mySqlCommand = new MySqlCommand(delSql, connection.Conn);
         mySqlCommand.Parameters.Add(new MySqlParameter("@charguid", MySqlDbType.Int32)

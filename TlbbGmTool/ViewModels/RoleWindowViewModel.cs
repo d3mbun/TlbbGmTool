@@ -8,7 +8,7 @@ public class RoleWindowViewModel : ViewModelBase
     #region Fields
     private RoleViewModel? _roleInfo;
     /// <summary>
-    /// 数据库连接
+    /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
     #endregion
@@ -38,7 +38,7 @@ public class RoleWindowViewModel : ViewModelBase
             {
                 return string.Empty;
             }
-            return $"管理 {RoleInfo.CharName}(角色id: {RoleInfo.CharGuid})";
+            return $"Quản lý {RoleInfo.CharName}(ID nhân vật: {RoleInfo.CharGuid})";
         }
     }
 

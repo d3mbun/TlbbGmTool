@@ -1,7 +1,7 @@
 namespace liuguang.TlbbGmTool.Models;
 
 /// <summary>
-/// 从txt中读取的物品基本信息定义
+/// Định nghĩa thông tin cơ bản của vật phẩm đọc từ tệp txt
 /// </summary>
 public class ItemBase
 {

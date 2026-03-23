@@ -18,7 +18,7 @@ public partial class DbcFile
             rCount = Math.Min(0x1000, (int)limit - readLength);
             readLength += await stream.ReadAsync(textData, readLength, rCount);
         }
-        var fileContent = _textEncoding.GetString(textData);
+        var fileContent = UseViscii ? EncodingService.DecodeViscii(textData) : _textEncoding.GetString(textData);
         //
         List<DbcFieldType> fieldTypes = new();
         List<string>? fieldNames;

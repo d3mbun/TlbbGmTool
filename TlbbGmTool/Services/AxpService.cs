@@ -29,18 +29,18 @@ public static class AxpService
     }
 
     /// <summary>
-    /// 解析txt文件
+    /// Phân tích tệp txt
     /// </summary>
-    /// <param name="dirPath">本地目录</param>
+    /// <param name="dirPath">Thư mục nội bộ</param>
     /// <param name="axpFileStream"></param>
     /// <param name="axpFile"></param>
-    /// <param name="filename">txt文件名</param>
+    /// <param name="filename">Tên tệp txt</param>
     /// <returns></returns>
     private static async Task<DbcFile> ParseFileAsync(string dirPath, Stream axpFileStream, AxpFile axpFile, string filename)
     {
         DbcFile fileResult;
         var filePath = Path.Combine(dirPath, filename);
-        //如果Config/xxxx.txt存在,则优先使用
+        // Nếu Config/xxxx.txt tồn tại, ưu tiên sử dụng
         if (File.Exists(filePath))
         {
             using (var fileStream = File.OpenRead(filePath))
@@ -52,16 +52,16 @@ public static class AxpService
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"解析文件{filePath}出错,{ex.Message}", ex);
+                    throw new Exception($"Lỗi khi phân tích tệp {filePath}, {ex.Message}", ex);
                 }
                 return fileResult;
             }
         }
-        //从axp文件中读取
+        // Đọc từ tệp axp
         var blockNode = axpFile.GetBlockNode(filename);
         if (!blockNode.HasValue)
         {
-            throw new Exception("axp中未找到文件" + filename);
+            throw new Exception("Không tìm thấy tệp " + filename + " trong axp");
         }
         axpFileStream.Seek(blockNode.Value.DataOffset, SeekOrigin.Begin);
         try
@@ -70,7 +70,7 @@ public static class AxpService
         }
         catch (Exception ex)
         {
-            throw new Exception($"解析axp中文件{filename}出错,{ex.Message}", ex);
+            throw new Exception($"Lỗi khi phân tích tệp {filename} trong axp, {ex.Message}", ex);
         }
         return fileResult;
     }
@@ -236,7 +236,7 @@ public static class AxpService
         var materialCapacity = rowFields[98].IntValue;
         var equipVisual = (ushort)rowFields[6].IntValue;
         var maxDurPoint = (byte)rowFields[16].IntValue;
-        //起始数值段
+        // Đoạn giá trị bắt đầu
         var segIndex = rowFields[91].IntValue;
         int[]? equipAttrValues = null;
         if (segIndex > 0)

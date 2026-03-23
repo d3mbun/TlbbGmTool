@@ -1,27 +1,27 @@
 namespace liuguang.TlbbGmTool.Models;
 
 /// <summary>
-/// 从txt文件中获取的心法基本信息
+/// Thông tin cơ bản về tâm pháp được lấy từ tệp txt
 /// </summary>
 public class XinFaBase
 {
     /// <summary>
-    /// 心法ID
+    /// Định nghĩa Tâm Pháp
     /// </summary>
     public readonly int Id;
 
     /// <summary>
-    /// 门派ID
+    /// ID môn phái
     /// </summary>
     public readonly int Menpai;
 
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public readonly string Name;
 
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     public readonly string Description;
 

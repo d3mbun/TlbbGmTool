@@ -48,7 +48,7 @@ public class PaginationViewModel : NotifyBase
             }
         }
     }
-    public string PageTip => $"第{_page}/{_pageTotal}页";
+    public string PageTip => $"Trang {_page}/{_pageTotal}";
     #endregion
 
     #region Commands

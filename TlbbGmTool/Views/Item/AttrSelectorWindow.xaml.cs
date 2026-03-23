@@ -3,7 +3,7 @@ using System.Windows;
 namespace liuguang.TlbbGmTool.Views.Item;
 
 /// <summary>
-/// 属性选择窗体
+/// Cửa sổ chọn thuộc tính
 /// </summary>
 public partial class AttrSelectorWindow : Window
 {

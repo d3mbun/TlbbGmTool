@@ -1,36 +1,36 @@
 namespace liuguang.TlbbGmTool.Models;
 
 /// <summary>
-/// 一条物品记录
+/// Một bản ghi vật phẩm
 /// </summary>
 public class ItemLog
 {
     /// <summary>
-    /// 记录id
+    /// ID bản ghi
     /// </summary>
     public int Id;
     /// <summary>
-    /// 所属角色id
+    /// Guid nhân vật sở hữu
     /// </summary>
     public int CharGuid;
     /// <summary>
-    /// 物品guid
+    /// Guid vật phẩm
     /// </summary>
     public int Guid;
     /// <summary>
-    /// 世界编号
+    /// Số hiệu thế giới
     /// </summary>
     public int World = 101;
     /// <summary>
-    /// 服务器编号
+    /// Số hiệu máy chủ
     /// </summary>
     public int Server = 0;
     /// <summary>
-    /// 物品编号
+    /// Mã vật phẩm
     /// </summary>
     public int ItemBaseId;
     /// <summary>
-    /// 位置
+    /// Vị trí
     /// </summary>
     public int Pos;
     /// <summary>
@@ -38,7 +38,7 @@ public class ItemLog
     /// </summary>
     public byte[] PData = new byte[17 * 4];
     /// <summary>
-    /// 制作者
+    /// Người chế tạo
     /// </summary>
     public string Creator = string.Empty;
     public bool IsValid = true;

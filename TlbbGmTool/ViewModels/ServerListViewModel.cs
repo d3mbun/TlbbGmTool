@@ -79,7 +79,7 @@ public class ServerListViewModel : ViewModelBase
             return;
         }
         //删除确认
-        if (!Confirm("删除提示", $"你确定要删除服务器{serverInfo.ServerName}吗?"))
+        if (!Confirm("Xác nhận xóa", $"Bạn có chắc chắn muốn xóa máy chủ {serverInfo.ServerName} không?"))
         {
             return;
         }
@@ -92,10 +92,10 @@ public class ServerListViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            ShowErrorMessage("保存配置文件失败", e);
+            ShowErrorMessage("Lưu tệp cấu hình thất bại", e);
             return;
         }
 
-        ShowMessage("操作成功", "删除服务器成功");
+        ShowMessage("Thao tác thành công", "Xóa máy chủ thành công");
     }
 }

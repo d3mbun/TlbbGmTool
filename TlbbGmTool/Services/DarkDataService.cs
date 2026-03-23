@@ -4,7 +4,7 @@ namespace liuguang.TlbbGmTool.Services;
 public static class DarkDataService
 {
     /// <summary>
-    /// 读取数据,放入darkData中
+    /// Đọc dữ liệu, bỏ vào darkData
     /// </summary>
     /// <param name="itemBaseId"></param>
     /// <param name="pData"></param>
@@ -25,11 +25,11 @@ public static class DarkDataService
             return value;
         };
         darkData.NowExp = readNextInt();
-        //3个技能状态
+        //3 trạng thái kỹ năng
         darkData.Impact0 = readNextShort();
         darkData.Impact1 = readNextShort();
         darkData.Impact2 = readNextShort();
-        //5种附加属性
+        //5 loại thuộc tính cộng thêm
         darkData.AppendAttr0 = readNextShort();
         darkData.AppendAttr1 = readNextShort();
         darkData.AppendAttr2 = readNextShort();
@@ -41,10 +41,10 @@ public static class DarkDataService
         darkData.Level = pData[offset];
     }
     /// <summary>
-    /// 将数据写入到pData中
+    /// Ghi dữ liệu vào pData
     /// </summary>
     /// <param name="darkData"></param>
-    /// <param name="pData">28字节数组</param>
+    /// <param name="pData">Mảng byte 28 byte</param>
     public static void Write(DarkDataViewModel darkData, byte[] pData)
     {
         int offset = 0;
@@ -60,11 +60,11 @@ public static class DarkDataService
         };
         //
         writeNextInt(darkData.NowExp);
-        //3个技能状态
+        // 3 trạng thái kỹ năng
         writeNextShort(darkData.Impact0);
         writeNextShort(darkData.Impact1);
         writeNextShort(darkData.Impact2);
-        //5种附加属性
+        // 5 loại thuộc tính cộng thêm
         writeNextShort(darkData.AppendAttr0);
         writeNextShort(darkData.AppendAttr1);
         writeNextShort(darkData.AppendAttr2);

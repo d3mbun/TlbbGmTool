@@ -105,7 +105,7 @@ public class ItemLogViewModel : NotifyBase
             {
                 return itemBaseInfo.Name;
             }
-            return "未知物品";
+            return "Vật phẩm không xác định";
         }
     }
     public string ItemShortTypeString
@@ -116,7 +116,7 @@ public class ItemLogViewModel : NotifyBase
             {
                 return itemBaseInfo.ShortTypeString;
             }
-            return "未知物品";
+            return "Vật phẩm không xác định";
         }
     }
     public string ItemDescription
@@ -127,7 +127,7 @@ public class ItemLogViewModel : NotifyBase
             {
                 return itemBaseInfo.Description;
             }
-            return "未知物品";
+            return "Vật phẩm không xác định";
         }
     }
     public int ItemLevel

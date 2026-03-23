@@ -3,35 +3,35 @@ namespace liuguang.TlbbGmTool.Models;
 public class PetLog
 {
     /// <summary>
-    /// 记录id
+    /// ID bản ghi
     /// </summary>
     public int Id;
     /// <summary>
-    /// 角色id
+    /// Guid nhân vật
     /// </summary>
     public int CharGuid;
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public string PetName = string.Empty;
     /// <summary>
-    /// 等级
+    /// Cấp độ
     /// </summary>
     public int Level;
     /// <summary>
-    /// 携带等级
+    /// Cấp độ yêu cầu
     /// </summary>
     public int NeedLevel;
     /// <summary>
-    /// 性格
+    /// Tính cách
     /// </summary>
     public int AiType;
     /// <summary>
-    /// 类型(外功、内功、平衡)
+    /// Loại (Nội công, Ngoại công, Bình hành)
     /// </summary>
     public int PetType;
     /// <summary>
-    /// 寿命
+    /// Thọ mệnh
     /// </summary>
     public int Life;
     /// <summary>
@@ -39,71 +39,71 @@ public class PetLog
     /// </summary>
     public int Genera;
     /// <summary>
-    /// 快乐
+    /// Vui vẻ
     /// </summary>
     public int Enjoy;
     /// <summary>
-    /// 悟性
+    /// Ngộ tính
     /// </summary>
     public int Savvy;
     /// <summary>
-    /// 根骨
+    /// Căn cốt
     /// </summary>
     public int Gengu;
     /// <summary>
-    /// 成长率
+    /// Tỷ lệ trưởng thành
     /// </summary>
     public int GrowRate;
     /// <summary>
-    /// 潜能
+    /// Tiềm năng
     /// </summary>
     public int Repoint;
     /// <summary>
-    /// 经验
+    /// Kinh nghiệm
     /// </summary>
     public int Exp;
     /// <summary>
-    /// 力量
+    /// Cường lực
     /// </summary>
     public int Str;
     /// <summary>
-    /// 灵气
+    /// Nội lực
     /// </summary>
     public int Spr;
     /// <summary>
-    /// 体力
+    /// Thể chất
     /// </summary>
     public int Con;
     /// <summary>
-    /// 定力
+    /// Định lực
     /// </summary>
     public int Ipr;
     /// <summary>
-    /// 身法
+    /// Thân pháp
     /// </summary>
     public int Dex;
     /// <summary>
-    /// 力量资质
+    /// Tư chất cường lực
     /// </summary>
     public int StrPer;
     /// <summary>
-    /// 灵气资质
+    /// Tư chất nội lực
     /// </summary>
     public int SprPer;
     /// <summary>
-    /// 体力资质
+    /// Tư chất thể chất
     /// </summary>
     public int ConPer;
     /// <summary>
-    /// 定力资质
+    /// Tư chất định lực
     /// </summary>
     public int IprPer;
     /// <summary>
-    /// 身法资质
+    /// Tư chất thân pháp
     /// </summary>
     public int DexPer;
     /// <summary>
-    /// 技能
+    /// Kỹ năng
     /// </summary>
     public string Skill = string.Empty;
 }

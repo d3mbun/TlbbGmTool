@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace liuguang.TlbbGmTool.Views.Account;
 
 /// <summary>
-/// AccountListPage.xaml 的交互逻辑
+/// Logic tương tác cho AccountListPage.xaml
 /// </summary>
 public partial class AccountListPage : Page
 {
@@ -31,7 +31,7 @@ public partial class AccountListPage : Page
         //MessageBox.Show("bind1");
         mainWindowVm.PropertyChanged += (sender, evt) =>
         {
-            //连接被断开后,清理搜索结果列表
+            // Sau khi ngắt kết nối, xóa danh sách kết quả tìm kiếm
             if (evt.PropertyName == nameof(mainWindowVm.CanDisConnServer))
             {
                 if (mainWindowVm.CanConnServer)

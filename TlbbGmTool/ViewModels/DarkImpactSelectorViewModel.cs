@@ -8,17 +8,17 @@ using System.Linq;
 namespace liuguang.TlbbGmTool.ViewModels;
 
 /// <summary>
-/// 暗器技能选择器
+/// Trình chọn kỹ năng ám khí
 /// </summary>
 public class DarkImpactSelectorViewModel : ViewModelBase
 {
     #region Fields
     /// <summary>
-    /// 所有的技能列表
+    /// Toàn bộ danh sách kỹ năng
     /// </summary>
     private List<ComboBoxNode<int>> _itemList = new();
     /// <summary>
-    /// 符合筛选条件的技能列表
+    /// Danh sách kỹ năng phù hợp điều kiện lọc
     /// </summary>
     private List<ComboBoxNode<int>> _filterItemList = new();
     private int _initItemId;
@@ -26,7 +26,7 @@ public class DarkImpactSelectorViewModel : ViewModelBase
     private readonly PaginationViewModel _pagination = new();
 
     /// <summary>
-    /// 每页最大展示量
+    /// Số lượng hiển thị tối đa mỗi trang
     /// </summary>
     private const int _pageLimit = 20;
     #endregion
@@ -83,7 +83,7 @@ public class DarkImpactSelectorViewModel : ViewModelBase
     private void DoFilterItemList()
     {
         _filterItemList = (from itemInfo in _itemList
-                           where itemInfo.Title.IndexOf(_searchText, StringComparison.Ordinal) >= 0
+                           where itemInfo.Title.IndexOf(_searchText, StringComparison.OrdinalIgnoreCase) >= 0
                            select itemInfo).ToList();
         _pagination.SetCount(_filterItemList.Count, _pageLimit);
         RaisePropertyChanged(nameof(CurrentPageItemList));

@@ -5,12 +5,12 @@ namespace liuguang.TlbbGmTool.Services;
 public static class EquipDataService
 {
     /// <summary>
-    /// 读取数据,放入equipData中
+    /// Đọc dữ liệu, bỏ vào equipData
     /// </summary>
     /// <param name="itemBaseId"></param>
     /// <param name="pData"></param>
     /// <param name="equipData"></param>
-    /// <param name="serverType">端类型</param>
+    /// <param name="serverType">Loại server</param>
     public static void Read(int itemBaseId, byte[] pData, EquipDataViewModel equipData, ServerType serverType)
     {
         equipData.ItemBaseId = itemBaseId;
@@ -36,7 +36,7 @@ public static class EquipDataService
         equipData.RulerId = readNextByte();
         if (serverType == ServerType.Common)
         {
-            //跳过固定为0的字节
+            //Bỏ qua byte có giá trị cố định là 0
             offset++;
         }
         //前3个宝石
@@ -75,7 +75,7 @@ public static class EquipDataService
         equipData.HiddenValue = readNextByte();
         if (serverType == ServerType.Common)
         {
-            //最后一个宝石
+            //Viên ngọc cuối cùng
             offset += 16;
             equipData.Gem3 = readNextInt();
         }
@@ -87,11 +87,11 @@ public static class EquipDataService
     }
 
     /// <summary>
-    /// 将数据写入到pData中
+    /// Ghi dữ liệu vào pData
     /// </summary>
     /// <param name="equipData"></param>
-    /// <param name="pData">17*4长度的字节数组</param>
-    /// <param name="serverType">端类型</param>
+    /// <param name="pData">Mảng byte có độ dài 17*4</param>
+    /// <param name="serverType">Loại máy chủ</param>
     public static void Write(EquipDataViewModel equipData, byte[] pData, ServerType serverType)
     {
         int offset = 0;
@@ -110,14 +110,14 @@ public static class EquipDataService
             DataService.WriteData(pData, offset, value);
             offset += 4;
         };
-        //重新计算属性条数和嵌入的宝石个数
+        //Tính lại số dòng thuộc tính và số ngọc đã khảm
         equipData.ReloadStoneCount();
         equipData.ReloadAttrCount();
         //
         writeNextByte(equipData.RulerId);
         if (serverType == ServerType.Common)
         {
-            //跳过固定为0的字节
+            //Bỏ qua byte có giá trị cố định là 0
             offset++;
         }
         //前3个宝石
@@ -156,7 +156,7 @@ public static class EquipDataService
         writeNextByte(equipData.HiddenValue);
         if (serverType == ServerType.Common)
         {
-            //最后一个宝石
+            //Viên ngọc cuối cùng
             offset += 16;
             writeNextInt(equipData.Gem3);
         }

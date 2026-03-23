@@ -12,7 +12,7 @@ public class XinFaListViewModel : ViewModelBase
     #region Fields
     public int CharGuid;
     /// <summary>
-    /// 数据库连接
+        // Chuyển đổi CSDL
     /// </summary>
     public DbConnection? Connection;
 
@@ -51,7 +51,7 @@ public class XinFaListViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("加载出错", ex);
+            ShowErrorMessage("Lỗi khi tải dữ liệu", ex);
         }
     }
 
@@ -64,7 +64,7 @@ public class XinFaListViewModel : ViewModelBase
         {
             Value = charGuid
         });
-        // 切换数据库
+        // Chuyển đổi CSDL
         await connection.SwitchGameDbAsync();
         using var reader = await mySqlCommand.ExecuteReaderAsync();
         if (reader is MySqlDataReader rd)

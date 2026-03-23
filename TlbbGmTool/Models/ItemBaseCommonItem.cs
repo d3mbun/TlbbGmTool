@@ -2,7 +2,7 @@ namespace liuguang.TlbbGmTool.Models;
 public class ItemBaseCommonItem : ItemBase
 {
     /// <summary>
-    /// 是否消耗自己
+    /// Có tiêu hao bản thân không
     /// </summary>
     public readonly bool CosSelf;
     public readonly uint BasePrice;

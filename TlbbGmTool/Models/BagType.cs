@@ -1,19 +1,19 @@
 namespace liuguang.TlbbGmTool.Models;
 /// <summary>
-/// 背包类型
+/// Loại túi
 /// </summary>
 public enum BagType
 {
     /// <summary>
-    /// 道具
+    /// Đạo cụ
     /// </summary>
     ItemBag,
     /// <summary>
-    /// 材料
+    /// Nguyên liệu
     /// </summary>
     MaterialBag,
     /// <summary>
-    /// 任务
+    /// Nhiệm vụ
     /// </summary>
     TaskBag
 }

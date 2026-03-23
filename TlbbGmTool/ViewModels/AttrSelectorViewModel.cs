@@ -158,7 +158,7 @@ public class AttrSelectorViewModel : ViewModelBase
         }
     }
     /// <summary>
-    /// 计算已选择的属性条数
+    /// Tính số lượng thuộc tính đã chọn
     /// </summary>
     /// <returns></returns>
     private int GetSelectedAttrCount()
@@ -172,7 +172,7 @@ public class AttrSelectorViewModel : ViewModelBase
         return attrCount;
     }
     /// <summary>
-    /// 属性条数达到限制后,禁止选择剩余的属性
+    /// Sau khi số lượng thuộc tính đạt giới hạn, cấm chọn các thuộc tính còn lại
     /// </summary>
     private void OnAttributeCheckChange()
     {
