@@ -39,7 +39,7 @@
                                     Header="Cấp độ" Binding="{Binding Level}" />
                 <DataGridTextColumn Width="80" ElementStyle="{StaticResource TextColumnStyle}"
                                     Header="KNB" Binding="{Binding YuanBao}" />
-                <DataGridTemplateColumn Header="Quản lý" Width="130">
+                <DataGridTemplateColumn Header="Quản lý" Width="160">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <WrapPanel>

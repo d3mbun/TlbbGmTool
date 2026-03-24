@@ -38,7 +38,7 @@
                                     Header="Email" Binding="{Binding Email}" />
                 <DataGridTextColumn Width="60" ElementStyle="{StaticResource TextColumnStyle}"
                                     Header="Điểm" Binding="{Binding Point}" />
-                <DataGridTextColumn Width="60" ElementStyle="{StaticResource TextColumnStyle}"
+                <DataGridTextColumn Width="80" ElementStyle="{StaticResource TextColumnStyle}"
                                     Header="Trạng thái"
                                     Binding="{Binding IsLockText}" />
                 <DataGridTemplateColumn Header="Quản lý" Width="130">

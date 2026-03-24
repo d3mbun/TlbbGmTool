@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner"
-        Title="{Binding WindowTitle}" Width="400" Height="334">
+        Title="{Binding WindowTitle}" Width="500" Height="334">
     <Window.DataContext>
         <vm:AccountEditorViewModel />
     </Window.DataContext>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="100" />
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
