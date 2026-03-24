@@ -69,7 +69,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.Resources>
                     <Style TargetType="Label">
-                        <Setter Property="Padding" Value="0,0,0,6" />
+                        <Setter Property="Padding" Value="0,0,6,0" />
                         <Setter Property="VerticalContentAlignment" Value="Center" />
                         <Setter Property="HorizontalContentAlignment" Value="Right" />
                     </Style>

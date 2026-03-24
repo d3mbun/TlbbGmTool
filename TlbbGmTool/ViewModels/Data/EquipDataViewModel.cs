@@ -391,7 +391,7 @@ public class EquipDataViewModel : NotifyBase
                 }
             }
         }
-        return $"未知外形(visual ID: {visualId})";
+        return $"Ngoại hình chưa biết(visual ID: {visualId})";
     }
     private static int GetAttrCountFromNumber(int attrValue)
     {
@@ -415,7 +415,7 @@ public class EquipDataViewModel : NotifyBase
 
     private static string CalcAttrTip(int attrValue)
     {
-        return $"已选择{GetAttrCountFromNumber(attrValue)}种属性";
+        return $"Đã chọn {GetAttrCountFromNumber(attrValue)} thuộc tính";
     }
     /// <summary>
     /// 重新计算嵌入的宝石个数

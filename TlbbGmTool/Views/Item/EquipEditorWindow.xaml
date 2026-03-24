@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:liuguang.TlbbGmTool.ViewModels"
         mc:Ignorable="d"
         ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
-        Title="{Binding WindowTitle}" Height="450" Width="800">
+        Title="{Binding WindowTitle}" Height="450" Width="900">
     <Window.DataContext>
         <vm:EquipEditorViewModel />
     </Window.DataContext>
@@ -160,7 +160,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="32" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
