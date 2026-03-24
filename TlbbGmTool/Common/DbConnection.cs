@@ -54,8 +54,7 @@ public class DbConnection
             Port = serverInfo.DbPort,
             UserID = serverInfo.DbUser,
             Password = serverInfo.DbPassword,
-            ConnectionTimeout = 20,
-            MinimumPoolSize = 3,
+            ConnectionTimeout = 30,
             ConnectionLifeTime = 4 * 60,
             Keepalive = 30,
         };
@@ -64,7 +63,14 @@ public class DbConnection
             connectionStringBuilder.SslMode = MySqlSslMode.Disabled;
         }
         _conn.ConnectionString = connectionStringBuilder.ConnectionString;
-        await _conn.OpenAsync();
+        try
+        {
+            await _conn.OpenAsync();
+        }
+        catch (System.Exception ex) when (ex.Message.IndexOf("timeout", System.StringComparison.OrdinalIgnoreCase) >= 0)
+        {
+            await _conn.OpenAsync();
+        }
         _accountDbName = serverInfo.AccountDbName;
         _gameDbName = serverInfo.GameDbName;
         _currentDbName = null;

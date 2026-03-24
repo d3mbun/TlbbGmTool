@@ -38,7 +38,10 @@ public class CommonItemEditorViewModel : ViewModelBase
     {
         get
         {
+            if (_inputItemLog is null)
+            {
                 return "Phát Vật Phẩm";
+            }
             return "Chỉnh sửa Vật Phẩm " + _itemData.ItemName;
         }
     }

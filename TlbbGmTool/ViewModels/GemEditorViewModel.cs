@@ -37,7 +37,10 @@ public class GemEditorViewModel : ViewModelBase
     {
         get
         {
+            if (_inputItemLog is null)
+            {
                 return "Phát Bảo Thạch";
+            }
             return "Chỉnh sửa Bảo Thạch " + _itemData.ItemName;
         }
     }

@@ -38,7 +38,10 @@ public class EquipEditorViewModel : ViewModelBase
     {
         get
         {
+            if (_inputItemLog is null)
+            {
                 return "Phát Trang Bị";
+            }
             return "Chỉnh sửa Trang Bị " + _equipData.EquipName;
         }
     }
