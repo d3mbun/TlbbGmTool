@@ -40,6 +40,10 @@ public static class SharedData
     /// 暗器状态名称
     /// </summary>
     public static readonly SortedDictionary<int, string> DarkImpactMap = new();
+    /// <summary>
+    /// 珍兽基础属性
+    /// </summary>
+    public static readonly SortedDictionary<int, PetAttrBase> PetAttrMap = new();
 
     /// <summary>
     /// 清理txt数据缓存
@@ -50,5 +54,6 @@ public static class SharedData
         XinFaMap.Clear();
         PetSkillMap.Clear();
         DarkImpactMap.Clear();
+        PetAttrMap.Clear();
     }
 }

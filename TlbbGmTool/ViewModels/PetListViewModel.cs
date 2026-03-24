@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using liuguang.TlbbGmTool.Common;
 using liuguang.TlbbGmTool.Services;
@@ -27,6 +28,7 @@ public class PetListViewModel : ViewModelBase
     public Command EditPetCommand { get; }
     public Command EditPetSkillCommand { get; }
     public Command DeletePetCommand { get; }
+    public Command AddPetCommand { get; }
 
     #endregion
 
@@ -35,6 +37,7 @@ public class PetListViewModel : ViewModelBase
         EditPetCommand = new(ShowPetEditor);
         EditPetSkillCommand = new(ShowPetSkillEditor);
         DeletePetCommand = new(AskDeletePet);
+        AddPetCommand = new(ShowAddPet);
     }
 
     public async Task LoadPetListAsync()
@@ -117,9 +120,63 @@ public class PetListViewModel : ViewModelBase
         {
             ShowDialog(new PetEditorWindow(), (PetEditorViewModel vm) =>
             {
+                vm.PetList = PetList;
                 vm.PetInfo = petInfo;
                 vm.Connection = Connection;
             });
+        }
+    }
+
+    private void ShowAddPet(object? parameter)
+    {
+        var selectorWindow = new PetSelectorWindow();
+        var beforeAction = (PetSelectorViewModel vm) =>
+        {
+            vm.PetList = SharedData.PetAttrMap.Values.ToList();
+        };
+
+        if (ShowDialog(selectorWindow, beforeAction) == true)
+        {
+            var selectedPet = selectorWindow.SelectedPet;
+            if (selectedPet != null)
+            {
+                var newPetInfo = new PetLogViewModel(new()
+                {
+                    CharGuid = CharGuid,
+                    PetName = selectedPet.Name,
+                    Level = 1,
+                    NeedLevel = selectedPet.Level,
+                    AiType = 1,
+                    PetType = 1,
+                    Genera = selectedPet.Id,
+                    Life = selectedPet.MaxLife > 0 ? selectedPet.MaxLife : 10000,
+                    Enjoy = 100,
+                    Savvy = 0,
+                    Gengu = 0,
+                    GrowRate = 1000,
+                    Repoint = 0,
+                    Exp = 0,
+                    Str = 10,
+                    Spr = 10,
+                    Con = 10,
+                    Ipr = 10,
+                    Dex = 10,
+                    StrPer = selectedPet.StrPer,
+                    ConPer = selectedPet.ConPer,
+                    SprPer = selectedPet.SprPer,
+                    DexPer = selectedPet.DexPer,
+                    IprPer = selectedPet.IprPer,
+                    Skill = ""
+                });
+
+                ShowDialog(new PetEditorWindow(), (PetEditorViewModel vm) =>
+                {
+                    vm.PetList = PetList;
+                    vm.PetInfo = newPetInfo;
+                    vm.Connection = Connection;
+                    vm.IsCreateMode = true;
+                });
+            }
         }
     }
 

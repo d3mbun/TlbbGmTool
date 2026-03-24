@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,9 +26,11 @@ public class PetEditorViewModel : ViewModelBase
     /// Kết nối CSDL
     /// </summary>
     public DbConnection? Connection;
+    public ObservableCollection<PetLogViewModel>? PetList { get; set; }
+    public bool IsCreateMode { get; set; } = false;
     #endregion
     #region Properties
-    public string WindowTitle => $"Chỉnh sửa {_petInfo.PetName} (ID: {_petInfo.Id})";
+    public string WindowTitle => IsCreateMode ? $"Tạo mới {_petInfo.PetName}" : $"Chỉnh sửa {_petInfo.PetName} (ID: {_petInfo.Id})";
     public PetLogViewModel PetInfo
     {
         get => _petInfo;
@@ -81,9 +84,22 @@ public class PetEditorViewModel : ViewModelBase
         {
             await Task.Run(async () =>
             {
-                await DoSavePetAsync(Connection, _petInfo);
+                if (IsCreateMode)
+                {
+                    await DoInsertPetAsync(Connection, _petInfo);
+                }
+                else
+                {
+                    await DoSavePetAsync(Connection, _petInfo);
+                }
             });
             _inputPetInfo?.CopyFrom(_petInfo);
+            if (IsCreateMode && PetList != null && _inputPetInfo != null)
+            {
+                PetList.Add(_inputPetInfo);
+                IsCreateMode = false;
+                RaisePropertyChanged(nameof(WindowTitle));
+            }
             ShowMessage("Lưu thành công", "Lưu thông tin Trân Thú thành công");
             OwnedWindow?.Close();
         }
@@ -149,9 +165,80 @@ public class PetEditorViewModel : ViewModelBase
         {
             Value = petInfo.Id
         });
-        // Chuyển đổi CSDL
         await connection.SwitchGameDbAsync();
         //exec
         await mySqlCommand.ExecuteNonQueryAsync();
+    }
+
+    private async Task DoInsertPetAsync(DbConnection connection, PetLogViewModel petInfo)
+    {
+        // Chuyển đổi CSDL
+        await connection.SwitchGameDbAsync();
+
+        // Lấy lpetguid lớn nhất hiện tại
+        int maxLPetGuid = 0;
+        var cmdMax = new MySqlCommand("SELECT MAX(lpetguid) FROM t_pet", connection.Conn);
+        var resultMax = await cmdMax.ExecuteScalarAsync();
+        if (resultMax != null && resultMax != DBNull.Value)
+        {
+            maxLPetGuid = Convert.ToInt32(resultMax);
+        }
+        int nextLPetGuid = maxLPetGuid + 1;
+
+        var sql = "INSERT INTO t_pet (charguid, hpetguid, lpetguid, dataxid, petname, level, needlevel, aitype, atttype, pettype, genera, life, hp, enjoy, savvy, gengu, growrate, repoint, exp, str, spr, con, ipr, dex, strper, sprper, conper, iprper, dexper, pclvl, skill) VALUES (@charguid, @hpetguid, @lpetguid, @dataxid, @petname, @level, @needlevel, @aitype, @atttype, @pettype, @genera, @life, @hp, @enjoy, @savvy, @gengu, @growrate, @repoint, @exp, @str, @spr, @con, @ipr, @dex, @strper, @sprper, @conper, @iprper, @dexper, @pclvl, @skill); SELECT LAST_INSERT_ID();";
+        
+        var mySqlCommand = new MySqlCommand(sql, connection.Conn);
+        var intDictionary = new Dictionary<string, int>()
+        {
+            ["charguid"] = petInfo.CharGuid,
+            ["hpetguid"] = petInfo.CharGuid,
+            ["lpetguid"] = nextLPetGuid,
+            ["dataxid"] = petInfo.Genera,
+            ["level"] = petInfo.Level,
+            ["needlevel"] = petInfo.NeedLevel,
+            ["aitype"] = petInfo.AiType,
+            ["atttype"] = -1,
+            ["pettype"] = petInfo.PetType,
+            ["genera"] = petInfo.Genera,
+            ["life"] = petInfo.Life,
+            ["hp"] = 100,
+            ["enjoy"] = petInfo.Enjoy,
+            ["savvy"] = petInfo.Savvy,
+            ["gengu"] = petInfo.Gengu,
+            ["growrate"] = petInfo.GrowRate,
+            ["repoint"] = petInfo.Repoint,
+            ["exp"] = petInfo.Exp,
+            ["str"] = petInfo.Str,
+            ["spr"] = petInfo.Spr,
+            ["con"] = petInfo.Con,
+            ["ipr"] = petInfo.Ipr,
+            ["dex"] = petInfo.Dex,
+            ["strper"] = petInfo.StrPer,
+            ["sprper"] = petInfo.SprPer,
+            ["conper"] = petInfo.ConPer,
+            ["iprper"] = petInfo.IprPer,
+            ["dexper"] = petInfo.DexPer,
+            ["pclvl"] = -1,
+        };
+
+        foreach (var keyPair in intDictionary)
+        {
+            mySqlCommand.Parameters.Add(new MySqlParameter("@" + keyPair.Key, MySqlDbType.Int32)
+            {
+                Value = keyPair.Value
+            });
+        }
+        mySqlCommand.Parameters.Add(new MySqlParameter("@petname", MySqlDbType.String)
+        {
+            Value = DbStringService.ToDbString(petInfo.PetName)
+        });
+        mySqlCommand.Parameters.Add(new MySqlParameter("@skill", MySqlDbType.String)
+        {
+            Value = petInfo.Skill
+        });
+
+        // exec and get inserted id
+        var newId = Convert.ToInt32(await mySqlCommand.ExecuteScalarAsync());
+        petInfo.Id = newId;
     }
 }

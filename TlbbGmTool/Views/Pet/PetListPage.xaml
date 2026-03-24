@@ -11,6 +11,14 @@
         <vm:PetListViewModel />
     </Page.DataContext>
     <DockPanel>
+        <WrapPanel DockPanel.Dock="Top" Margin="10,10,10,0">
+            <WrapPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Padding" Value="10,5" />
+                </Style>
+            </WrapPanel.Resources>
+            <Button Command="{Binding AddPetCommand}">Phát Trân Thú</Button>
+        </WrapPanel>
         <DataGrid Style="{StaticResource DataGridStyle}" Margin="10" ItemsSource="{Binding PetList}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="2*" ElementStyle="{StaticResource TextColumnStyle}"

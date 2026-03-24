@@ -26,6 +26,7 @@ public static class AxpService
         await LoadXinFaAsync(parseTextFileFn, SharedData.XinFaMap);
         await LoadPetSkillAsync(parseTextFileFn, SharedData.PetSkillMap);
         await LoadDarkImpactAsync(parseTextFileFn, SharedData.DarkImpactMap);
+        await LoadPetAttrAsync(parseTextFileFn, SharedData.PetAttrMap);
     }
 
     /// <summary>
@@ -135,6 +136,19 @@ public static class AxpService
         foreach (var keyValuePair in dbcFile.DataMap)
         {
             darkImpactMap[keyValuePair.Key] = keyValuePair.Value[1].StringValue;
+        }
+    }
+
+    private static async Task LoadPetAttrAsync(Func<string, Task<DbcFile>> parseTextFileAsync, SortedDictionary<int, PetAttrBase> petAttrMap)
+    {
+        var dbcFile = await parseTextFileAsync("PetAttrTable.txt");
+        foreach (var keyValuePair in dbcFile.DataMap)
+        {
+            var rowFields = keyValuePair.Value;
+            if (rowFields.Count >= 3)
+            {
+                petAttrMap[keyValuePair.Key] = ParsePetAttrRow(rowFields);
+            }
         }
     }
 
@@ -266,5 +280,19 @@ public static class AxpService
         var name = rowFields[3].StringValue;
         var description = rowFields[74].StringValue;
         return new(id, skillType, name, description);
+    }
+
+    private static PetAttrBase ParsePetAttrRow(List<DbcField> rowFields)
+    {
+        var id = rowFields[0].IntValue;
+        var name = rowFields[1].StringValue;
+        var level = rowFields[3].IntValue;
+        var maxLife = rowFields.Count > 33 ? rowFields[33].IntValue : 10000;
+        var strPer = rowFields.Count > 34 ? rowFields[34].IntValue : 0;
+        var conPer = rowFields.Count > 35 ? rowFields[35].IntValue : 0;
+        var sprPer = rowFields.Count > 36 ? rowFields[36].IntValue : 0;
+        var dexPer = rowFields.Count > 37 ? rowFields[37].IntValue : 0;
+        var iprPer = rowFields.Count > 38 ? rowFields[38].IntValue : 0;
+        return new(id, name, level, maxLife, strPer, conPer, sprPer, dexPer, iprPer);
     }
 }

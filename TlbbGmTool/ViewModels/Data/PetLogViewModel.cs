@@ -12,7 +12,7 @@ public class PetLogViewModel : NotifyBase
     public int Id
     {
         get => _petLog.Id;
-        private set => SetProperty(ref _petLog.Id, value);
+        set => SetProperty(ref _petLog.Id, value);
     }
     public int CharGuid
     {
