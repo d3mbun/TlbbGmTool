@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:liuguang.TlbbGmTool.ViewModels"
         mc:Ignorable="d"
         ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
-        Title="Chọn kỹ năng Ám Khí" Height="500" Width="520">
+        Title="Chọn kỹ năng Ám Khí" Height="500" Width="600">
     <Window.DataContext>
         <vm:DarkImpactSelectorViewModel />
     </Window.DataContext>

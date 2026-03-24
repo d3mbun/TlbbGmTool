@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:liuguang.TlbbGmTool.ViewModels"
         mc:Ignorable="d"
         ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
-        Title="{Binding WindowTitle}" Height="500" Width="520">
+        Title="{Binding WindowTitle}" Height="500" Width="600">
     <Window.DataContext>
         <vm:ItemSelectorViewModel />
     </Window.DataContext>

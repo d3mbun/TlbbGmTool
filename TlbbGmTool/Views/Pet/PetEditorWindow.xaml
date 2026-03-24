@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
         ResizeMode="CanMinimize"
-        Title="{Binding WindowTitle}" Width="530" Height="450">
+        Title="{Binding WindowTitle}" Width="700" Height="450">
     <Window.DataContext>
         <vm:PetEditorViewModel />
     </Window.DataContext>

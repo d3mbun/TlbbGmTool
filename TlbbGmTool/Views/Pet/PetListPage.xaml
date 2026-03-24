@@ -6,20 +6,20 @@
       xmlns:vm="clr-namespace:liuguang.TlbbGmTool.ViewModels"
       mc:Ignorable="d"
       Loaded="Page_Loaded"
-      Title="PetList" d:DesignWidth="800" d:DesignHeight="450">
+      Title="PetList" d:DesignWidth="900" d:DesignHeight="450">
     <Page.DataContext>
         <vm:PetListViewModel />
     </Page.DataContext>
     <DockPanel>
         <DataGrid Style="{StaticResource DataGridStyle}" Margin="10" ItemsSource="{Binding PetList}">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="3*" ElementStyle="{StaticResource TextColumnStyle}"
+                <DataGridTextColumn Width="2*" ElementStyle="{StaticResource TextColumnStyle}"
                                     Header="ID" Binding="{Binding Id}" SortDirection="Ascending" />
                 <DataGridTextColumn Width="4*" ElementStyle="{StaticResource TextColumnStyle}"
                                     Header="Tên" Binding="{Binding PetName}" />
                 <DataGridTextColumn Width="*" ElementStyle="{StaticResource TextColumnStyle}"
                                     Header="Cấp độ" Binding="{Binding Level}" />
-                <DataGridTemplateColumn Width="240" Header="Quản lý">
+                <DataGridTemplateColumn Width="320" Header="Quản lý">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <WrapPanel Margin="5">

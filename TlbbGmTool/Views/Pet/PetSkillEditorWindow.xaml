@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:liuguang.TlbbGmTool.ViewModels"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
-        Title="{Binding WindowTitle}" Height="450" Width="500">
+        Title="{Binding WindowTitle}" Height="450" Width="700">
     <Window.DataContext>
         <vm:PetSkillEditorViewModel />
     </Window.DataContext>

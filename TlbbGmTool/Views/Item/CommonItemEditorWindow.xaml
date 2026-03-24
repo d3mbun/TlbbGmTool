@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:liuguang.TlbbGmTool.ViewModels"
         mc:Ignorable="d"
         ShowInTaskbar="False" WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
-        Title="{Binding WindowTitle}" Height="350" Width="400">
+        Title="{Binding WindowTitle}" Height="350" Width="600">
     <Window.DataContext>
         <vm:CommonItemEditorViewModel />
     </Window.DataContext>

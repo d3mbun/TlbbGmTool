@@ -6,7 +6,7 @@
       xmlns:vm="clr-namespace:liuguang.TlbbGmTool.ViewModels"
       mc:Ignorable="d"
       Loaded="Page_Loaded"
-      d:DesignWidth="780" d:DesignHeight="450"
+      d:DesignWidth="880" d:DesignHeight="450"
       Title="EditRolePage">
     <Page.DataContext>
         <vm:RoleEditorViewModel />
@@ -27,11 +27,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
         <Grid.Resources>
             <Style TargetType="Label">
